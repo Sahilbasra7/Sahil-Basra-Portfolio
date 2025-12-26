@@ -62,7 +62,7 @@ function Thoughts() {
             onClick={() =>
               setOpenIndex(openIndex === index ? null : index)
             }
-            whileHover={{ y: -4 }}
+            whileHover={{ y: -4, boxShadow: '0 10px 28px rgba(0,0,0,0.35)' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -131,13 +131,13 @@ function Thoughts() {
 
 const styles = {
   section: {
-    padding: '64px 40px',
+    padding: '32px 40px',
     maxWidth: '900px',
     scrollMarginTop: '120px',
   },
   heading: {
     fontSize: '40px',
-    marginBottom: '24px',
+    marginBottom: '20px',
     fontWeight: 600,
   },
 
@@ -161,6 +161,7 @@ const styles = {
     textDecoration: 'none',
     color: '#fff',
     cursor: 'pointer',
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
 
   badge: {
@@ -183,10 +184,11 @@ const styles = {
     right: '18px',
     background: 'none',
     border: 'none',
-    color: '#aaa',
+    color: '#999',
     cursor: 'pointer',
     padding: 0,
     lineHeight: 0,   // 👈 IMPORTANT FOR SVG ALIGNMENT
+    transition: 'transform 0.25s ease, color 0.25s ease',
   },
 
   cardTitle: {
@@ -211,12 +213,12 @@ const styles = {
     marginTop: '16px',
     fontSize: '14px',
     lineHeight: 1.6,
-    opacity: 0.8,
+    opacity: 0.85,
   },
   previewText: {
     fontSize: '14px',
     lineHeight: 1.6,
-    opacity: 0.75,
+    opacity: 0.7,
     marginBottom: '8px',
   },
 };

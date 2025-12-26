@@ -1,7 +1,60 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 function Contact() {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    purpose: '',
+    message: '',
+  });
+
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    // 🔑 Clear error for this field when user fixes input
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    const newErrors = {};
+
+    if (!form.name.trim()) newErrors.name = 'Name is required';
+    if (!form.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(form.email))
+      newErrors.email = 'Enter a valid email';
+
+    if (!form.purpose) newErrors.purpose = 'Please select a purpose';
+    if (!form.message.trim()) newErrors.message = 'Message cannot be empty';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setSuccess(true);
+      setForm({ name: '', email: '', purpose: '', message: '' });
+
+      setTimeout(() => {
+        setSuccess(false);
+        setIsSubmitting(false);
+      }, 4000);
+    } else {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" style={styles.section}>
 
@@ -20,49 +73,137 @@ function Contact() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -4 }}                 // 👈 hover lift added
+        whileHover={{ y: -4, boxShadow: '0 10px 28px rgba(0,0,0,0.35)' }}                 
         viewport={{ once: true }}
-        transition={{ type: 'spring', stiffness: 250 }}
+        transition={{ type: 'spring', stiffness: 220 }}
         style={styles.card}
       >
-        <p style={styles.subHeading}>Let’s work together</p>
+        {!success && (
+          <p style={styles.subHeading}>Let’s work together</p>
+        )}
 
-        {/* Form */}
-        <form style={styles.form}>
+        {success ? (
+          <motion.div
+            style={styles.successBox}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+          >
+            <motion.div
+              style={styles.successIcon}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              ✅
+            </motion.div>
+
+            <motion.p
+              style={styles.successText}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+            >
+              Your message has been sent successfully!
+            </motion.p>
+          </motion.div>
+        ) : (
+          <form style={styles.form} onSubmit={handleSubmit}>
           <div style={styles.row}>
-            <input style={styles.input} placeholder="Your Name" />
-            <input style={styles.input} placeholder="your@email.com" />
+            <div style={styles.field}>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                style={{
+                  ...styles.input,
+                  border: errors.name ? '1px solid #ff6b6b' : '1px solid transparent',
+                }}
+                placeholder="Your Name"
+              />
+              <span style={styles.error}>{errors.name || ' '}</span>
+            </div>
+
+            <div style={styles.field}>
+              <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                style={{
+                  ...styles.input,
+                  border: errors.email ? '1px solid #ff6b6b' : '1px solid transparent',
+                }}
+                placeholder="your@email.com"
+              />
+              <span style={styles.error}>{errors.email || ' '}</span>
+            </div>
           </div>
 
-          <select style={styles.input}>
-            <option>Select Purpose</option>
-            <option>Automation Testing</option>
-            <option>QA Consulting</option>
-            <option>Freelance Project</option>
-            <option>Full-time Opportunity</option>
-          </select>
+          <div style={styles.field}>
+            <select
+              name="purpose"
+              value={form.purpose}
+              onChange={handleChange}
+              style={{
+                ...styles.input,
+                border: errors.purpose ? '1px solid #ff6b6b' : '1px solid transparent',
+              }}
+            >
+              <option value="">Select Purpose</option>
+              <option>Automation Testing</option>
+              <option>QA Consulting</option>
+              <option>Freelance Project</option>
+              <option>Full-time Opportunity</option>
+            </select>
+            <span style={styles.error}>{errors.purpose || ' '}</span>
+          </div>
 
-          <textarea
-            style={{ ...styles.input, height: '140px' }}
-            placeholder="Message"
-          />
+          <div style={styles.field}>
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              style={{
+                ...styles.input,
+                height: '140px',
+                border: errors.message ? '1px solid #ff6b6b' : '1px solid transparent',
+              }}
+              placeholder="Message"
+            />
+            <span style={styles.error}>{errors.message || ' '}</span>
+          </div>
 
-          <button style={styles.button}>Submit</button>
+          <button
+            style={{
+              ...styles.button,
+              opacity: isSubmitting ? 0.6 : 1,
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            }}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
         </form>
+        )}
       </motion.div>
+      <style>{`
+        button:not(:disabled):hover {
+          transform: translateY(-2px);
+        }
+      `}</style>
     </section>
   );
 }
 
 const styles = {
   section: {
-    padding: '40px 40px',
+    padding: '32px 40px',
     maxWidth: '900px',
   },
 
   heading: {
     fontSize: '40px',          // SAME AS ABOUT / EXPERIENCE
-    marginBottom: '28px',
+    marginBottom: '20px',
   },
 
   // ✅ SAME CARD SYSTEM AS EXPERIENCE / ABOUT
@@ -71,11 +212,12 @@ const styles = {
     borderRadius: '16px',
     background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
 
   subHeading: {
     fontSize: '18px',
-    opacity: 0.7,
+    opacity: 0.65,
     marginBottom: '24px',
   },
 
@@ -88,6 +230,13 @@ const styles = {
   row: {
     display: 'flex',
     gap: '20px',
+    alignItems: 'flex-start', // 🔑 prevents height jumping
+  },
+
+  field: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
 
   input: {
@@ -99,6 +248,7 @@ const styles = {
     color: '#fff',
     fontSize: '14px',
     outline: 'none',
+    transition: 'border 0.2s ease, background 0.2s ease',
   },
 
   button: {
@@ -111,6 +261,40 @@ const styles = {
     fontSize: '16px',
     fontWeight: 600,
     cursor: 'pointer',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+  },
+
+  error: {
+    minHeight: '16px',        // 🔑 reserves space
+    fontSize: '12px',
+    color: '#ff6b6b',
+    marginTop: '4px',
+  },
+
+  success: {
+    marginBottom: '20px',
+    padding: '12px 16px',
+    borderRadius: '10px',
+    background: 'rgba(46, 204, 113, 0.15)',
+    color: '#2ecc71',
+    fontSize: '14px',
+    fontWeight: 500,
+  },
+  successBox: {
+    minHeight: '280px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  successIcon: {
+    fontSize: '36px',
+    marginBottom: '12px',
+  },
+  successText: {
+    fontSize: '16px',
+    opacity: 0.8,
   },
 };
 

@@ -37,7 +37,7 @@ function Experience() {
             key={index}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}        // 👈 add hover
+            whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(0,0,0,0.35)' }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 250 }}
             style={styles.card}
@@ -55,12 +55,12 @@ function Experience() {
 
 const styles = {
   section: {
-    padding: '40px 40px',
+    padding: '32px 40px',
     maxWidth: '900px',
   },
   heading: {
     fontSize: '40px',
-    marginBottom: '28px',
+    marginBottom: '20px',
   },
   card: {
     padding: '24px',
@@ -68,6 +68,7 @@ const styles = {
     background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
     marginBottom: '24px',
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
   company: {
     fontSize: '20px',
@@ -83,7 +84,7 @@ const styles = {
     fontSize: '14px',
     lineHeight: 1.6,
     opacity: 0.75,
-    maxWidth: '600px',
+    maxWidth: '560px',
   },
   period: {
     display: 'block',

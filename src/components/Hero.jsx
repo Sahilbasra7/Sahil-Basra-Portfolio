@@ -1,6 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
-import sahil from '../assets/sahil.jpg';
+
 
 function Hero() {
   return (
@@ -9,22 +9,48 @@ function Hero() {
 
         {/* LEFT: Hero Text */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.08 },
+            },
+          }}
           style={styles.content}
         >
-          <h1 style={styles.title}>
+          <motion.h1
+            variants={{
+              hidden: { opacity: 0, y: 12 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.4 }}
+            style={styles.title}
+          >
             AUTOMATION <br />
             <span style={styles.muted}>ENGINEER</span>
-          </h1>
+          </motion.h1>
 
-          <p style={styles.subtitle}>
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 12 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.4 }}
+            style={styles.subtitle}
+          >
             Passionate QA Automation Engineer focused on building scalable
             automation frameworks and delivering high-quality software
             through reliable testing strategies.
-          </p>
-          <div style={styles.stats}>
+          </motion.p>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.4 }}
+            style={styles.stats}
+          >
             <div style={styles.statItem}>
               <h3 style={styles.statNumber}>+5</h3>
               <p style={styles.statLabel}>Years of Experience</p>
@@ -39,12 +65,16 @@ function Hero() {
               <h3 style={styles.statNumber}>+12</h3>
               <p style={styles.statLabel}>Worldwide Clients</p>
             </div>
-          </div>
+          </motion.div>
+          <div style={styles.divider} />
           <div style={styles.heroCards}>
 
             {/* Experience Card */}
             <motion.div
               style={styles.heroCard}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
               whileHover={{ boxShadow: '0 10px 30px rgba(0,0,0,0.35)', y: -2 }}
             >
               <div>
@@ -66,6 +96,9 @@ function Hero() {
             {/* Projects Card */}
             <motion.div
               style={styles.heroCard}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
               whileHover={{ boxShadow: '0 10px 30px rgba(0,0,0,0.35)', y: -2 }}
             >
               <div>
@@ -87,29 +120,6 @@ function Hero() {
           </div>
         </motion.div>
 
-        {/* RIGHT: Vertical Profile Card */}
-        <motion.div
-          whileHover={{ y: -6 }}
-          transition={{ type: 'spring', stiffness: 250 }}
-          style={styles.card}
-        >
-          <img src={sahil} alt="Sahil" style={styles.image} />
-
-          <div style={styles.cardContent}>
-            <h3 style={styles.name}>Sahil Basra</h3>
-            <p style={styles.tagline}>
-              QA Automation Engineer
-            </p>
-
-            <div style={styles.socials}>
-              <span>🌐</span>
-              <span>🐦</span>
-              <span>📸</span>
-              <span>▶️</span>
-            </div>
-          </div>
-        </motion.div>
-
       </div>
     </section>
   );
@@ -118,7 +128,7 @@ function Hero() {
 const styles = {
   section: {
     paddingTop: '160px',      // ✅ clears navbar
-    paddingBottom: '220px',   // ✅ separates from About
+    paddingBottom: '160px',   // ✅ separates from About (reduced from 220px)
     paddingLeft: '40px',
     paddingRight: '40px',
   },
@@ -129,7 +139,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '100px',
+    gap: '72px',
     flexWrap: 'wrap',
   },
 
@@ -140,18 +150,21 @@ const styles = {
     minWidth: '300px',
   },
   title: {
-    fontSize: '72px',
-    fontWeight: 700,
-    lineHeight: 1,
-    marginBottom: '24px',
+    fontSize: '76px',
+    fontWeight: 800,
+    lineHeight: 0.95,
+    letterSpacing: '-1px',
+    marginBottom: '20px',
   },
   muted: {
-    opacity: 0.3,
+    opacity: 0.22,
+    fontWeight: 700,
   },
   subtitle: {
-    fontSize: '16px',
+    fontSize: '18px',
     opacity: 0.7,
-    lineHeight: 1.6,
+    lineHeight: 1.75,
+    maxWidth: '540px',
   },
 
   /* RIGHT PROFILE CARD */
@@ -193,7 +206,7 @@ const styles = {
   stats: {
     display: 'flex',
     gap: '48px',
-    marginTop: '40px',
+    marginTop: '32px',
   },
 
   statItem: {
@@ -202,22 +215,22 @@ const styles = {
   },
 
   statNumber: {
-    fontSize: '36px',
-    fontWeight: 700,
-    letterSpacing: '-1px',
+    fontSize: '38px',
+    fontWeight: 800,
+    letterSpacing: '-1.2px',
   },
 
   statLabel: {
     marginTop: '6px',
-    fontSize: '12px',
-    opacity: 0.6,
+    fontSize: '11px',
+    opacity: 0.55,
     textTransform: 'uppercase',
-    letterSpacing: '1px',
+    letterSpacing: '1.2px',
   },
   heroCards: {
     display: 'flex',
-    gap: '24px',
-    marginTop: '40px',
+    gap: '20px',
+    marginTop: '28px',
   },
 
   heroCard: {
@@ -226,7 +239,7 @@ const styles = {
     height: '140px',
     padding: '20px',
     borderRadius: '16px',
-    background: 'rgba(255,255,255,0.04)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
     border: '1px solid rgba(255,255,255,0.08)',
     display: 'flex',
     justifyContent: 'space-between',
@@ -253,7 +266,7 @@ const styles = {
     border: 'none',
     fontSize: '22px',
     cursor: 'pointer',
-    color: '#888',
+    color: '#9aa3af',
     transition: 'color 0.2s ease, transform 0.2s ease',
   },
   statsRow: {
@@ -283,6 +296,14 @@ const styles = {
     right: '20px',
     bottom: '20px',
     opacity: 0.6,
+  },
+
+  divider: {
+    height: '1px',
+    width: '100%',
+    maxWidth: '520px',
+    background: 'rgba(255,255,255,0.08)',
+    marginTop: '28px',
   },
 };
 

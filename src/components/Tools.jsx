@@ -30,8 +30,8 @@ function Tools() {
         {tools.map((tool, index) => (
           <motion.div
             key={index}
-            whileHover={{ y: -4 }}
-            transition={{ type: 'spring', stiffness: 300 }}
+            whileHover={{ y: -4, boxShadow: '0 10px 28px rgba(0,0,0,0.35)' }}
+            transition={{ type: 'spring', stiffness: 220 }}
             style={styles.card}
           >
             {tool}
@@ -44,7 +44,7 @@ function Tools() {
 
 const styles = {
   section: {
-    padding: '40px 40px',
+    padding: '32px 40px',
   },
   heading: {
     fontSize: '40px',
@@ -55,6 +55,7 @@ const styles = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
     gap: '16px',
     maxWidth: '800px',
+    marginTop: '12px',
   },
   card: {
     padding: '16px 20px',
@@ -63,7 +64,8 @@ const styles = {
     border: '1px solid rgba(255,255,255,0.08)',
     fontSize: '14px',
     textAlign: 'center',
-    opacity: 0.85,
+    opacity: 0.8,
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
 };
 

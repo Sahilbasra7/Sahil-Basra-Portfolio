@@ -1,0 +1,81 @@
+/* ========================= */
+/* GLOBAL SAFETY FIXES */
+/* ========================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ========================= */
+/* DESKTOP LAYOUT (UNCHANGED) */
+/* ========================= */
+.main-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 80px;
+  padding: 0 24px;
+  align-items: flex-start;
+}
+
+.main-left {
+  position: sticky;
+  top: 120px;
+  flex-shrink: 0;
+}
+
+.main-right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ========================= */
+/* MOBILE — SINGLE COLUMN */
+/* ========================= */
+@media (max-width: 768px) {
+
+  .main-page {
+    justify-content: center;
+  }
+
+  .main-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 0 16px;
+  }
+
+  /* NAVBAR SAFE SPACE */
+  .main-wrapper::before {
+    content: "";
+    display: block;
+    height: 96px; /* navbar height buffer */
+  }
+
+  /* PROFILE CARD */
+  .main-left {
+    position: relative;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* CONTENT */
+  .main-right {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}

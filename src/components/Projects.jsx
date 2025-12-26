@@ -42,8 +42,8 @@ function Projects() {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            whileHover={{ y: -6 }}
-            transition={{ type: 'spring', stiffness: 250 }}
+            whileHover={{ y: -6, boxShadow: '0 12px 32px rgba(0,0,0,0.35)' }}
+            transition={{ type: 'spring', stiffness: 220 }}
             style={styles.card}
           >
             <h3 style={styles.title}>{project.title}</h3>
@@ -64,11 +64,11 @@ function Projects() {
 
 const styles = {
   section: {
-    padding: '40px 40px',
+    padding: '32px 40px',
   },
   heading: {
     fontSize: '40px',
-    marginBottom: '28px',
+    marginBottom: '20px',
   },
   grid: {
     display: 'grid',
@@ -80,6 +80,7 @@ const styles = {
     borderRadius: '16px',
     background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
   title: {
     fontSize: '18px',
@@ -89,18 +90,19 @@ const styles = {
   description: {
     fontSize: '14px',
     lineHeight: 1.6,
-    opacity: 0.75,
+    opacity: 0.7,
     marginBottom: '12px',
   },
   tech: {
     fontSize: '12px',
-    opacity: 0.5,
+    opacity: 0.55,
     marginBottom: '16px',
   },
   link: {
     fontSize: '14px',
     textDecoration: 'none',
-    opacity: 0.8,
+    opacity: 0.75,
+    transition: 'opacity 0.2s ease',
   },
 };
 

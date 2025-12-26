@@ -1,4 +1,3 @@
-
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
 
@@ -30,7 +29,7 @@ function Skills() {
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            whileHover={{ y: -6 }}                         // SAME AS TOOLS
+            whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(0,0,0,0.35)' }}
             transition={{ type: 'spring', stiffness: 250 }}
             style={styles.card}
           >
@@ -44,26 +43,27 @@ function Skills() {
 
 const styles = {
   section: {
-    padding: '40px 40px',
+    padding: '32px 40px',
   },
   heading: {
     fontSize: '40px',
-    marginBottom: '20px',
+    marginBottom: '16px',
   },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-    gap: '16px',
+    gap: '14px',
     maxWidth: '800px',
   },
   card: {
-    padding: '16px 20px',                               // SAME AS TOOLS
-    borderRadius: '12px',                               // SAME AS TOOLS
-    background: 'rgba(255,255,255,0.04)',
+    padding: '16px 20px',
+    borderRadius: '12px',
+    background: 'rgba(255,255,255,0.035)',
     border: '1px solid rgba(255,255,255,0.08)',
     fontSize: '14px',
     textAlign: 'center',
     opacity: 0.85,
+    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
   },
 };
 

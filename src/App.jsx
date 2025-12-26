@@ -16,6 +16,9 @@ import Blog2 from './pages/blogs/Blog2';
 import Blog3 from './pages/blogs/Blog3';
 import Blog4 from './pages/blogs/Blog4';
 
+import MainLayout from './layouts/mainlayout';
+import ProfileCard from './components/ProfileCard';
+
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +29,7 @@ function App() {
         <Route
           path="/"
           element={
-            <>
+            <MainLayout>
               <Hero />
               <About />
               <Skills />
@@ -36,10 +39,9 @@ function App() {
               <Thoughts />
               <Contact />
               <Footer />
-            </>
+            </MainLayout>
           }
         />
-
         {/* ✅ BLOG PAGES */}
         <Route path="/blogs/automation-mindset" element={<Blog1 />} />
         <Route path="/blogs/flaky-tests" element={<Blog2 />} />

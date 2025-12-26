@@ -35,6 +35,7 @@ function About() {
           I specialize in Playwright and JavaScript, with strong exposure to
           UI, API, and integration testing across modern web applications.
         </p>
+        <div style={styles.divider} />
 
         <div style={styles.meta}>
           <span>3+ Years Experience</span>
@@ -49,7 +50,7 @@ function About() {
 
 const styles = {
   section: {
-    padding: '30px 40px',
+    padding: '24px 40px',
     maxWidth: '900px', // if present
     scrollMarginTop: '120px',
   },
@@ -58,7 +59,7 @@ const styles = {
     marginBottom: '22px',           // SAME AS PROJECTS
   },
   card: {
-    padding: '24px',
+    padding: '28px',
     borderRadius: '16px',
     background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
@@ -66,17 +67,22 @@ const styles = {
     maxWidth: '900px',
   },
   description: {
-    fontSize: '14px',
-    lineHeight: 1.6,
-    opacity: 0.75,
-    marginBottom: '16px',
+    fontSize: '15px',
+    lineHeight: 1.7,
+    opacity: 0.78,
+    marginBottom: '14px',
+  },
+  divider: {
+    height: '1px',
+    background: 'rgba(255,255,255,0.08)',
+    margin: '18px 0',
   },
   meta: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '12px',
-    fontSize: '12px',
-    opacity: 0.6,
+    gap: '10px',
+    fontSize: '11px',
+    opacity: 0.55,
   },
 };
 
