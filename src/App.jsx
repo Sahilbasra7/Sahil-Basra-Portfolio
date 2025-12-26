@@ -16,7 +16,7 @@ import Blog2 from './pages/blogs/Blog2';
 import Blog3 from './pages/blogs/Blog3';
 import Blog4 from './pages/blogs/Blog4';
 
-import MainLayout from './layouts/mainlayout';
+import MainLayout from './layouts/MainLayout';
 import ProfileCard from './components/ProfileCard';
 
 function App() {
