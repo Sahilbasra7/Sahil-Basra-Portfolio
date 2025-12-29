@@ -1,6 +1,7 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useResponsive } from '../hooks/useResponsive';
 
 const thoughts = [
   {
@@ -35,6 +36,98 @@ const thoughts = [
 
 function Thoughts() {
   const [openIndex, setOpenIndex] = useState(null);
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+      maxWidth: '900px',
+      scrollMarginTop: '120px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '20px',
+      fontWeight: 600,
+    },
+    mainCard: {
+      padding: isMobile ? '16px' : '24px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      display: 'grid',
+      gap: isMobile ? '12px' : '20px',
+    },
+    thoughtCard: {
+      position: 'relative',
+      padding: isMobile ? '16px 16px 16px 48px' : '20px 20px 20px 56px',
+      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.04)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      textDecoration: 'none',
+      color: '#fff',
+      cursor: 'pointer',
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+    badge: {
+      position: 'absolute',
+      top: isMobile ? '16px' : '20px',
+      left: isMobile ? '16px' : '20px',
+      width: isMobile ? '20px' : '24px',
+      height: isMobile ? '20px' : '24px',
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.12)',
+      fontSize: isMobile ? '11px' : '12px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: 600,
+    },
+    chevron: {
+      position: 'absolute',
+      top: isMobile ? '14px' : '18px',
+      right: isMobile ? '14px' : '18px',
+      background: 'none',
+      border: 'none',
+      color: '#999',
+      cursor: 'pointer',
+      padding: 0,
+      lineHeight: 0,
+      transition: 'transform 0.25s ease, color 0.25s ease',
+    },
+    cardTitle: {
+      fontSize: isMobile ? '15px' : '16px',
+      fontWeight: 600,
+      marginBottom: '8px',
+    },
+    cardText: {
+      fontSize: isMobile ? '13px' : '14px',
+      opacity: 0.75,
+      lineHeight: 1.6,
+    },
+    readMore: {
+      display: 'inline-block',
+      marginTop: '12px',
+      fontSize: isMobile ? '12px' : '13px',
+      color: '#4da3ff',
+      opacity: 0.9,
+      transition: 'opacity 0.2s ease',
+    },
+    dropdown: {
+      marginTop: '16px',
+      fontSize: isMobile ? '13px' : '14px',
+      lineHeight: 1.6,
+      opacity: 0.85,
+    },
+    previewText: {
+      fontSize: isMobile ? '13px' : '14px',
+      lineHeight: 1.6,
+      opacity: 0.7,
+      marginBottom: '8px',
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="thoughts" style={styles.section}>
       {/* Section Heading */}
@@ -128,99 +221,5 @@ function Thoughts() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-    maxWidth: '900px',
-    scrollMarginTop: '120px',
-  },
-  heading: {
-    fontSize: '40px',
-    marginBottom: '20px',
-    fontWeight: 600,
-  },
-
-  /* MAIN CONTAINER */
-  mainCard: {
-    padding: '24px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    display: 'grid',
-    gap: '20px',
-  },
-
-  /* INDIVIDUAL THOUGHT CARD */
-  thoughtCard: {
-    position: 'relative',
-    padding: '20px 20px 20px 56px',
-    borderRadius: '12px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    textDecoration: 'none',
-    color: '#fff',
-    cursor: 'pointer',
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-
-  badge: {
-    position: 'absolute',
-    top: '20px',
-    left: '20px',
-    width: '24px',
-    height: '24px',
-    borderRadius: '50%',
-    background: 'rgba(255,255,255,0.12)',
-    fontSize: '12px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 600,
-  },
-  chevron: {
-    position: 'absolute',
-    top: '18px',
-    right: '18px',
-    background: 'none',
-    border: 'none',
-    color: '#999',
-    cursor: 'pointer',
-    padding: 0,
-    lineHeight: 0,   // 👈 IMPORTANT FOR SVG ALIGNMENT
-    transition: 'transform 0.25s ease, color 0.25s ease',
-  },
-
-  cardTitle: {
-    fontSize: '16px',
-    fontWeight: 600,
-    marginBottom: '8px',
-  },
-  cardText: {
-    fontSize: '14px',
-    opacity: 0.75,
-    lineHeight: 1.6,
-  },
-  readMore: {
-    display: 'inline-block',
-    marginTop: '12px',
-    fontSize: '13px',
-    color: '#4da3ff',          // 👈 ADD THIS
-    opacity: 0.9,
-    transition: 'opacity 0.2s ease',
-  },
-  dropdown: {
-    marginTop: '16px',
-    fontSize: '14px',
-    lineHeight: 1.6,
-    opacity: 0.85,
-  },
-  previewText: {
-    fontSize: '14px',
-    lineHeight: 1.6,
-    opacity: 0.7,
-    marginBottom: '8px',
-  },
-};
 
 export default Thoughts;  

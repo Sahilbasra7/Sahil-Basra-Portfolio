@@ -1,7 +1,50 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useResponsive } from '../hooks/useResponsive';
 
 function About() {
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '24px 40px',
+      maxWidth: '900px',
+      scrollMarginTop: '120px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '22px',
+    },
+    card: {
+      padding: isMobile ? '20px' : '28px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      marginBottom: '24px',
+      maxWidth: '900px',
+    },
+    description: {
+      fontSize: isMobile ? '14px' : '15px',
+      lineHeight: 1.7,
+      opacity: 0.78,
+      marginBottom: '14px',
+    },
+    divider: {
+      height: '1px',
+      background: 'rgba(255,255,255,0.08)',
+      margin: '18px 0',
+    },
+    meta: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '10px',
+      fontSize: isMobile ? '10px' : '11px',
+      opacity: 0.55,
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="about" style={styles.section}>
 
@@ -47,43 +90,5 @@ function About() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '24px 40px',
-    maxWidth: '900px', // if present
-    scrollMarginTop: '120px',
-  },
-  heading: {
-    fontSize: '40px',               // SAME AS PROJECTS
-    marginBottom: '22px',           // SAME AS PROJECTS
-  },
-  card: {
-    padding: '28px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    marginBottom: '24px',
-    maxWidth: '900px',
-  },
-  description: {
-    fontSize: '15px',
-    lineHeight: 1.7,
-    opacity: 0.78,
-    marginBottom: '14px',
-  },
-  divider: {
-    height: '1px',
-    background: 'rgba(255,255,255,0.08)',
-    margin: '18px 0',
-  },
-  meta: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '10px',
-    fontSize: '11px',
-    opacity: 0.55,
-  },
-};
 
 export default About;

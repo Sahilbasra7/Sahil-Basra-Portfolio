@@ -1,8 +1,120 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
-
+import { useResponsive } from '../hooks/useResponsive';
 
 function Hero() {
+  const { isMobile, isTablet } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      paddingTop: isMobile ? '100px' : '160px',
+      paddingBottom: isMobile ? '60px' : isTablet ? '100px' : '160px',
+      paddingLeft: isMobile ? '20px' : '40px',
+      paddingRight: isMobile ? '20px' : '40px',
+    },
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: isMobile ? '32px' : '72px',
+      flexWrap: 'wrap',
+    },
+    content: {
+      maxWidth: isMobile ? '100%' : '600px',
+      flex: 1,
+      minWidth: isMobile ? '100%' : '300px',
+    },
+    title: {
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
+      marginBottom: '20px',
+    },
+    muted: {
+      opacity: 0.22,
+      fontWeight: 700,
+    },
+    subtitle: {
+      fontSize: isMobile ? '16px' : '18px',
+      opacity: 0.7,
+      lineHeight: 1.75,
+      maxWidth: isMobile ? '100%' : '540px',
+    },
+    stats: {
+      display: 'flex',
+      gap: isMobile ? '24px' : '48px',
+      marginTop: isMobile ? '24px' : '32px',
+      flexWrap: 'wrap',
+    },
+    statItem: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    statNumber: {
+      fontSize: isMobile ? '28px' : '38px',
+      fontWeight: 800,
+      letterSpacing: '-1.2px',
+    },
+    statLabel: {
+      marginTop: '6px',
+      fontSize: isMobile ? '10px' : '11px',
+      opacity: 0.55,
+      textTransform: 'uppercase',
+      letterSpacing: '1.2px',
+    },
+    heroCards: {
+      display: 'flex',
+      gap: isMobile ? '12px' : '20px',
+      marginTop: '28px',
+      flexWrap: 'wrap',
+    },
+    heroCard: {
+      position: 'relative',
+      width: isMobile ? 'calc(50% - 6px)' : '220px',
+      height: isMobile ? '120px' : '140px',
+      padding: isMobile ? '16px' : '20px',
+      borderRadius: '16px',
+      background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
+      border: '1px solid rgba(255,255,255,0.08)',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-end',
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+      boxShadow: '0 0 0 rgba(0,0,0,0)',
+    },
+    cardValue: {
+      fontSize: isMobile ? '24px' : '28px',
+      fontWeight: 700,
+    },
+    cardLabel: {
+      marginTop: '6px',
+      fontSize: isMobile ? '10px' : '12px',
+      opacity: 0.65,
+      textTransform: 'uppercase',
+      letterSpacing: '1px',
+    },
+    arrowBtn: {
+      background: 'none',
+      border: 'none',
+      fontSize: isMobile ? '18px' : '22px',
+      cursor: 'pointer',
+      color: '#9aa3af',
+      transition: 'color 0.2s ease, transform 0.2s ease',
+    },
+    divider: {
+      height: '1px',
+      width: '100%',
+      maxWidth: '520px',
+      background: 'rgba(255,255,255,0.08)',
+      marginTop: '28px',
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="home" style={styles.section}>
       <div style={styles.container}>
@@ -124,187 +236,5 @@ function Hero() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    paddingTop: '160px',      // ✅ clears navbar
-    paddingBottom: '160px',   // ✅ separates from About (reduced from 220px)
-    paddingLeft: '40px',
-    paddingRight: '40px',
-  },
-
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '72px',
-    flexWrap: 'wrap',
-  },
-
-  /* LEFT CONTENT */
-  content: {
-    maxWidth: '600px',
-    flex: 1,
-    minWidth: '300px',
-  },
-  title: {
-    fontSize: '76px',
-    fontWeight: 800,
-    lineHeight: 0.95,
-    letterSpacing: '-1px',
-    marginBottom: '20px',
-  },
-  muted: {
-    opacity: 0.22,
-    fontWeight: 700,
-  },
-  subtitle: {
-    fontSize: '18px',
-    opacity: 0.7,
-    lineHeight: 1.75,
-    maxWidth: '540px',
-  },
-
-  /* RIGHT PROFILE CARD */
-  card: {
-    width: '280px',
-    background: '#ffffff',
-    borderRadius: '20px',
-    overflow: 'hidden',
-    color: '#000000',
-    flexShrink: 0,
-  },
-  image: {
-    width: '100%',
-    aspectRatio: '4 / 5',
-    objectFit: 'cover',
-    display: 'block',
-  },
-  cardContent: {
-    padding: '20px',
-    textAlign: 'center',
-  },
-  name: {
-    fontSize: '22px',
-    fontWeight: 600,
-    marginBottom: '6px',
-  },
-  tagline: {
-    fontSize: '14px',
-    opacity: 0.7,
-    marginBottom: '16px',
-  },
-  socials: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '16px',
-    fontSize: '18px',
-    cursor: 'pointer',
-  },
-  stats: {
-    display: 'flex',
-    gap: '48px',
-    marginTop: '32px',
-  },
-
-  statItem: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-  statNumber: {
-    fontSize: '38px',
-    fontWeight: 800,
-    letterSpacing: '-1.2px',
-  },
-
-  statLabel: {
-    marginTop: '6px',
-    fontSize: '11px',
-    opacity: 0.55,
-    textTransform: 'uppercase',
-    letterSpacing: '1.2px',
-  },
-  heroCards: {
-    display: 'flex',
-    gap: '20px',
-    marginTop: '28px',
-  },
-
-  heroCard: {
-    position: 'relative',
-    width: '220px',
-    height: '140px',
-    padding: '20px',
-    borderRadius: '16px',
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-    border: '1px solid rgba(255,255,255,0.08)',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-    boxShadow: '0 0 0 rgba(0,0,0,0)',   // 👈 REQUIRED
-  },
-
-  cardValue: {
-    fontSize: '28px',
-    fontWeight: 700,
-  },
-
-  cardLabel: {
-    marginTop: '6px',
-    fontSize: '12px',
-    opacity: 0.65,
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-  },
-
-  arrowBtn: {
-    background: 'none',
-    border: 'none',
-    fontSize: '22px',
-    cursor: 'pointer',
-    color: '#9aa3af',
-    transition: 'color 0.2s ease, transform 0.2s ease',
-  },
-  statsRow: {
-    display: 'flex',
-    gap: '48px',
-    marginTop: '32px',
-    opacity: 0.8,
-  },
-
-  cardsRow: {
-    display: 'flex',
-    gap: '24px',
-    marginTop: '32px', // 👈 IMPORTANT: space from stats
-  },
-
-  statCard: {
-    flex: '0 0 260px',
-    padding: '24px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.04)', // ✅ ONLY here
-    border: '1px solid rgba(255,255,255,0.08)',
-    position: 'relative',
-  },
-
-  arrow: {
-    position: 'absolute',
-    right: '20px',
-    bottom: '20px',
-    opacity: 0.6,
-  },
-
-  divider: {
-    height: '1px',
-    width: '100%',
-    maxWidth: '520px',
-    background: 'rgba(255,255,255,0.08)',
-    marginTop: '28px',
-  },
-};
 
 export default Hero;

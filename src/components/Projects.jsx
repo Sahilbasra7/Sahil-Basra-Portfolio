@@ -1,5 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useResponsive } from '../hooks/useResponsive';
 
 const projects = [
   {
@@ -26,6 +27,54 @@ const projects = [
 ];
 
 function Projects() {
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '20px',
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: isMobile ? '16px' : '24px',
+    },
+    card: {
+      padding: isMobile ? '20px' : '24px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+    title: {
+      fontSize: isMobile ? '16px' : '18px',
+      fontWeight: 600,
+      marginBottom: '8px',
+    },
+    description: {
+      fontSize: isMobile ? '13px' : '14px',
+      lineHeight: 1.6,
+      opacity: 0.7,
+      marginBottom: '12px',
+    },
+    tech: {
+      fontSize: '12px',
+      opacity: 0.55,
+      marginBottom: '16px',
+    },
+    link: {
+      fontSize: '14px',
+      textDecoration: 'none',
+      opacity: 0.75,
+      transition: 'opacity 0.2s ease',
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="projects" style={styles.section}>
       <motion.h2
@@ -61,49 +110,5 @@ function Projects() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-  },
-  heading: {
-    fontSize: '40px',
-    marginBottom: '20px',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '24px',
-  },
-  card: {
-    padding: '24px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-  title: {
-    fontSize: '18px',
-    fontWeight: 600,
-    marginBottom: '8px',
-  },
-  description: {
-    fontSize: '14px',
-    lineHeight: 1.6,
-    opacity: 0.7,
-    marginBottom: '12px',
-  },
-  tech: {
-    fontSize: '12px',
-    opacity: 0.55,
-    marginBottom: '16px',
-  },
-  link: {
-    fontSize: '14px',
-    textDecoration: 'none',
-    opacity: 0.75,
-    transition: 'opacity 0.2s ease',
-  },
-};
 
 export default Projects;

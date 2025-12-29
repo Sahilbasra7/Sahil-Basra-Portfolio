@@ -1,5 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useResponsive } from '../hooks/useResponsive';
 
 const tools = [
   'Playwright',
@@ -14,6 +15,37 @@ const tools = [
 ];
 
 function Tools() {
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '20px',
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(160px, 1fr))',
+      gap: isMobile ? '12px' : '16px',
+      maxWidth: '800px',
+      marginTop: '12px',
+    },
+    card: {
+      padding: isMobile ? '14px 16px' : '16px 20px',
+      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.04)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      fontSize: isMobile ? '13px' : '14px',
+      textAlign: 'center',
+      opacity: 0.8,
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="tools" style={styles.section}>
       <motion.h2
@@ -41,32 +73,5 @@ function Tools() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-  },
-  heading: {
-    fontSize: '40px',
-    marginBottom: '20px',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-    gap: '16px',
-    maxWidth: '800px',
-    marginTop: '12px',
-  },
-  card: {
-    padding: '16px 20px',
-    borderRadius: '12px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    fontSize: '14px',
-    textAlign: 'center',
-    opacity: 0.8,
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-};
 
 export default Tools;

@@ -1,8 +1,10 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useResponsive } from '../hooks/useResponsive';
 
 function Contact() {
+  const { isMobile } = useResponsive();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -54,6 +56,101 @@ function Contact() {
       setIsSubmitting(false);
     }
   };
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+      maxWidth: '900px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '20px',
+    },
+    card: {
+      padding: isMobile ? '20px' : '24px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+    subHeading: {
+      fontSize: isMobile ? '16px' : '18px',
+      opacity: 0.65,
+      marginBottom: isMobile ? '20px' : '24px',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: isMobile ? '20px' : '24px',
+    },
+    row: {
+      display: 'flex',
+      gap: isMobile ? '12px' : '20px',
+      alignItems: 'flex-start',
+      flexDirection: isMobile ? 'column' : 'row',
+    },
+    field: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
+    input: {
+      width: '100%',
+      padding: isMobile ? '14px 16px' : '16px 18px',
+      background: '#2a2a2a',
+      border: 'none',
+      borderRadius: '10px',
+      color: '#fff',
+      fontSize: isMobile ? '13px' : '14px',
+      outline: 'none',
+      transition: 'border 0.2s ease, background 0.2s ease',
+    },
+    button: {
+      marginTop: '8px',
+      padding: isMobile ? '14px' : '16px',
+      borderRadius: '12px',
+      border: 'none',
+      background: '#f07c4a',
+      color: '#fff',
+      fontSize: isMobile ? '15px' : '16px',
+      fontWeight: 600,
+      cursor: 'pointer',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    },
+    error: {
+      minHeight: '16px',
+      fontSize: isMobile ? '11px' : '12px',
+      color: '#ff6b6b',
+      marginTop: '4px',
+    },
+    success: {
+      marginBottom: '20px',
+      padding: '12px 16px',
+      borderRadius: '10px',
+      background: 'rgba(46, 204, 113, 0.15)',
+      color: '#2ecc71',
+      fontSize: isMobile ? '13px' : '14px',
+      fontWeight: 500,
+    },
+    successBox: {
+      minHeight: isMobile ? '220px' : '280px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+    },
+    successIcon: {
+      fontSize: isMobile ? '32px' : '36px',
+      marginBottom: '12px',
+    },
+    successText: {
+      fontSize: isMobile ? '15px' : '16px',
+      opacity: 0.8,
+    },
+  });
+
+  const styles = getStyles();
 
   return (
     <section id="contact" style={styles.section}>
@@ -194,108 +291,5 @@ function Contact() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-    maxWidth: '900px',
-  },
-
-  heading: {
-    fontSize: '40px',          // SAME AS ABOUT / EXPERIENCE
-    marginBottom: '20px',
-  },
-
-  // ✅ SAME CARD SYSTEM AS EXPERIENCE / ABOUT
-  card: {
-    padding: '24px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-
-  subHeading: {
-    fontSize: '18px',
-    opacity: 0.65,
-    marginBottom: '24px',
-  },
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
-  },
-
-  row: {
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'flex-start', // 🔑 prevents height jumping
-  },
-
-  field: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-  },
-
-  input: {
-    width: '100%',
-    padding: '16px 18px',
-    background: '#2a2a2a',
-    border: 'none',
-    borderRadius: '10px',
-    color: '#fff',
-    fontSize: '14px',
-    outline: 'none',
-    transition: 'border 0.2s ease, background 0.2s ease',
-  },
-
-  button: {
-    marginTop: '8px',
-    padding: '16px',
-    borderRadius: '12px',
-    border: 'none',
-    background: '#f07c4a',
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: 600,
-    cursor: 'pointer',
-    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-  },
-
-  error: {
-    minHeight: '16px',        // 🔑 reserves space
-    fontSize: '12px',
-    color: '#ff6b6b',
-    marginTop: '4px',
-  },
-
-  success: {
-    marginBottom: '20px',
-    padding: '12px 16px',
-    borderRadius: '10px',
-    background: 'rgba(46, 204, 113, 0.15)',
-    color: '#2ecc71',
-    fontSize: '14px',
-    fontWeight: 500,
-  },
-  successBox: {
-    minHeight: '280px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  successIcon: {
-    fontSize: '36px',
-    marginBottom: '12px',
-  },
-  successText: {
-    fontSize: '16px',
-    opacity: 0.8,
-  },
-};
 
 export default Contact;

@@ -1,0 +1,54 @@
+/* ========================= */
+/* HERO — MOBILE FIX ONLY */
+/* ========================= */
+@media (max-width: 768px) {
+  /* Hero section spacing */
+  #home {
+    padding-top: 120px;   /* space for navbar */
+    padding-bottom: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Hero container */
+  #home > div {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+  }
+
+  /* Hero title */
+  #home h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  /* Subtitle */
+  #home p {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  /* Stats row */
+  #home .stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Hero cards */
+  #home .heroCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #home .heroCard {
+    width: 100%;
+    max-width: 320px;
+  }
+}

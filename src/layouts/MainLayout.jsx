@@ -1,14 +1,28 @@
+import { useEffect, useState } from 'react';
 import ProfileCard from '../components/ProfileCard';
 
 function MainLayout({ children }) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth <= 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <div style={styles.page}>
-      <div style={styles.wrapper}>
-        <aside style={styles.left}>
+      <div style={isMobile ? mobileStyles.wrapper : styles.wrapper}>
+        <aside style={isMobile ? mobileStyles.left : styles.left}>
           <ProfileCard />
         </aside>
 
-        <main style={styles.right}>
+        <main style={isMobile ? mobileStyles.right : styles.right}>
           {children}
         </main>
       </div>
@@ -42,6 +56,25 @@ const styles = {
   right: {
     flex: 1,
     minWidth: 0,
+  },
+};
+
+const mobileStyles = {
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '32px',
+    padding: '80px 16px 0', // space for fixed navbar
+  },
+
+  left: {
+    position: 'static',
+    transform: 'none',
+  },
+
+  right: {
+    width: '100%',
   },
 };
 

@@ -1,5 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useResponsive } from '../hooks/useResponsive';
 
 const experience = [
   {
@@ -19,6 +20,51 @@ const experience = [
 ];
 
 function Experience() {
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+      maxWidth: '900px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '20px',
+    },
+    card: {
+      padding: isMobile ? '20px' : '24px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      marginBottom: isMobile ? '16px' : '24px',
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+    company: {
+      fontSize: isMobile ? '18px' : '20px',
+      fontWeight: 600,
+    },
+    role: {
+      fontSize: isMobile ? '13px' : '14px',
+      opacity: 0.7,
+      marginTop: '4px',
+    },
+    desc: {
+      marginTop: '12px',
+      fontSize: isMobile ? '13px' : '14px',
+      lineHeight: 1.6,
+      opacity: 0.75,
+      maxWidth: '560px',
+    },
+    period: {
+      display: 'block',
+      marginTop: '8px',
+      fontSize: isMobile ? '11px' : '12px',
+      opacity: 0.5,
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="experience" style={styles.section}>
       <motion.h2
@@ -52,46 +98,5 @@ function Experience() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-    maxWidth: '900px',
-  },
-  heading: {
-    fontSize: '40px',
-    marginBottom: '20px',
-  },
-  card: {
-    padding: '24px',
-    borderRadius: '16px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    marginBottom: '24px',
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-  company: {
-    fontSize: '20px',
-    fontWeight: 600,
-  },
-  role: {
-    fontSize: '14px',
-    opacity: 0.7,
-    marginTop: '4px',
-  },
-  desc: {
-    marginTop: '12px',
-    fontSize: '14px',
-    lineHeight: 1.6,
-    opacity: 0.75,
-    maxWidth: '560px',
-  },
-  period: {
-    display: 'block',
-    marginTop: '8px',
-    fontSize: '12px',
-    opacity: 0.5,
-  },
-};
 
 export default Experience;

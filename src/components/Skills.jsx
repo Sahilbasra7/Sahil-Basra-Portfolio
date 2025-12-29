@@ -1,5 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useResponsive } from '../hooks/useResponsive';
 
 const skills = [
   'Automation Testing',
@@ -11,6 +12,36 @@ const skills = [
 ];
 
 function Skills() {
+  const { isMobile } = useResponsive();
+
+  const getStyles = () => ({
+    section: {
+      padding: isMobile ? '24px 20px' : '32px 40px',
+    },
+    heading: {
+      fontSize: isMobile ? '32px' : '40px',
+      marginBottom: '16px',
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(160px, 1fr))',
+      gap: isMobile ? '12px' : '14px',
+      maxWidth: '800px',
+    },
+    card: {
+      padding: isMobile ? '14px 16px' : '16px 20px',
+      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.035)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      fontSize: isMobile ? '13px' : '14px',
+      textAlign: 'center',
+      opacity: 0.85,
+      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+    },
+  });
+
+  const styles = getStyles();
+
   return (
     <section id="skills" style={styles.section}>
       {/* Heading */}
@@ -40,31 +71,5 @@ function Skills() {
     </section>
   );
 }
-
-const styles = {
-  section: {
-    padding: '32px 40px',
-  },
-  heading: {
-    fontSize: '40px',
-    marginBottom: '16px',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-    gap: '14px',
-    maxWidth: '800px',
-  },
-  card: {
-    padding: '16px 20px',
-    borderRadius: '12px',
-    background: 'rgba(255,255,255,0.035)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    fontSize: '14px',
-    textAlign: 'center',
-    opacity: 0.85,
-    transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-  },
-};
 
 export default Skills;
