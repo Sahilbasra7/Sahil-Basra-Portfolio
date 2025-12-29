@@ -47,7 +47,7 @@ function ProfileCard() {
             </svg>
           </a>
           <a 
-            href="https://youtube.com/@sahilbasra" 
+            href="https://www.youtube.com/" 
             target="_blank" 
             rel="noopener noreferrer"
             style={styles.socialLink}
