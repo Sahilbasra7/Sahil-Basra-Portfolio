@@ -62,7 +62,7 @@ function Contact() {
       padding: isMobile ? '24px 20px 40px' : '32px 40px 120px',
       maxWidth: '900px',
       minHeight: isMobile ? 'auto' : 'calc(100vh - 100px)',
-      scrollMarginTop: '100px',
+      scrollMarginTop: isMobile ? '80px' : '100px',
     },
     heading: {
       fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',

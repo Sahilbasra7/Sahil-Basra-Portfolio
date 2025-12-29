@@ -3,7 +3,10 @@ import sahil from '../assets/sahil.jpg';
 function ProfileCard() {
   return (
     <div style={styles.card}>
-      <img src={sahil} alt="Sahil" style={styles.image} />
+      {/* Picture Card */}
+      <div style={styles.pictureCard}>
+        <img src={sahil} alt="Sahil" style={styles.image} />
+      </div>
 
       <div style={styles.content}>
         <h3 style={styles.name}>Sahil Basra</h3>
@@ -11,7 +14,7 @@ function ProfileCard() {
 
         <div style={styles.socials}>
           <a 
-            href="https://linkedin.com/in/sahilbasra" 
+            href="https://www.linkedin.com/in/sahilbasra7/" 
             target="_blank" 
             rel="noopener noreferrer"
             style={styles.socialLink}
@@ -22,7 +25,7 @@ function ProfileCard() {
             </svg>
           </a>
           <a 
-            href="https://github.com/sahilbasra" 
+            href="https://github.com/Sahilbasra7" 
             target="_blank" 
             rel="noopener noreferrer"
             style={styles.socialLink}
@@ -33,7 +36,7 @@ function ProfileCard() {
             </svg>
           </a>
           <a 
-            href="https://medium.com/@sahilbasra" 
+            href="https://medium.com/@basrasahil32" 
             target="_blank" 
             rel="noopener noreferrer"
             style={styles.socialLink}
@@ -66,18 +69,26 @@ const styles = {
     maxWidth: '100%',
     background: '#fff',
     borderRadius: '20px',
-    overflow: 'hidden',
+    padding: '20px',
     color: '#000',
     boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
   },
+  pictureCard: {
+    background: '#f8f8f8',
+    borderRadius: '26px',
+    overflow: 'hidden',
+    marginBottom: '10px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+  },
   image: {
     width: '100%',
-    height: '380px',
-    objectFit: 'cover',
-    borderRadius: '20px 20px 0 0',
+    height: '340px',
+    objectFit: 'contain',
+    display: 'block',
+    backgroundColor: '#f8f8f8',
   },
   content: {
-    padding: '24px',
+    padding: '0',
     textAlign: 'center',
   },
   name: {

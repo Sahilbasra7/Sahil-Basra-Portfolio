@@ -20,6 +20,7 @@ function Tools() {
   const getStyles = () => ({
     section: {
       padding: isMobile ? '24px 20px' : '32px 40px',
+      scrollMarginTop: isMobile ? '80px' : '120px',
     },
     heading: {
       fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',

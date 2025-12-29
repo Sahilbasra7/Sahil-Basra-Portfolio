@@ -11,6 +11,7 @@ function Hero() {
       paddingBottom: isMobile ? '40px' : isTablet ? '60px' : '80px',
       paddingLeft: isMobile ? '20px' : '40px',
       paddingRight: isMobile ? '20px' : '40px',
+      scrollMarginTop: isMobile ? '80px' : '100px',
     },
     container: {
       maxWidth: '1200px',

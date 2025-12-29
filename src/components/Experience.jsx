@@ -26,6 +26,7 @@ function Experience() {
     section: {
       padding: isMobile ? '24px 20px' : '32px 40px',
       maxWidth: '900px',
+      scrollMarginTop: isMobile ? '80px' : '120px',
     },
     heading: {
       fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',

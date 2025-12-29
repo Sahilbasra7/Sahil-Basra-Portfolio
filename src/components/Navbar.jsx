@@ -101,8 +101,6 @@ const [isMobile, setIsMobile] = useState(() => {
   }, []);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScroll = window.scrollY;
 
@@ -122,8 +120,6 @@ const [isMobile, setIsMobile] = useState(() => {
           setShrink(true);
         }
       }
-
-      lastScrollY = currentScroll;
     };
 
     window.addEventListener('scroll', handleScroll);

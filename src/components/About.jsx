@@ -9,7 +9,7 @@ function About() {
     section: {
       padding: isMobile ? '40px 20px' : '60px 40px',
       maxWidth: '900px',
-      scrollMarginTop: '120px',
+      scrollMarginTop: isMobile ? '80px' : '120px',
     },
     heading: {
       fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
