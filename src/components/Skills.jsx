@@ -12,15 +12,19 @@ const skills = [
 ];
 
 function Skills() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
       padding: isMobile ? '24px 20px' : '32px 40px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '16px',
+      textAlign: 'center',
     },
     grid: {
       display: 'grid',
@@ -52,7 +56,7 @@ function Skills() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Skills
+        SKILLS
       </motion.h2>
 
       {/* Skills Grid */}

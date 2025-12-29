@@ -13,8 +13,8 @@ describe('App Component - Routing', () => {
       </MemoryRouter>
     );
     
-    expect(screen.getByText(/Home/i)).toBeInTheDocument();
-    expect(screen.getByText(/About/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Home/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/About/i)[0]).toBeInTheDocument();
   });
 
   it('should render home page components on root path', () => {
@@ -47,7 +47,7 @@ describe('App Component - Routing', () => {
       </MemoryRouter>
     );
     
-    expect(screen.getByText(/Home/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Home/i)[0]).toBeInTheDocument();
   });
 
   it('should render Blog2 component on /blogs/flaky-tests route', () => {
@@ -57,7 +57,7 @@ describe('App Component - Routing', () => {
       </MemoryRouter>
     );
     
-    expect(screen.getByText(/Home/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Home/i)[0]).toBeInTheDocument();
   });
 
   it('should render Blog3 component on /blogs/team-responsibility route', () => {
@@ -67,7 +67,7 @@ describe('App Component - Routing', () => {
       </MemoryRouter>
     );
     
-    expect(screen.getByText(/Home/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Home/i)[0]).toBeInTheDocument();
   });
 
   it('should render Blog4 component on /blogs/api-testing route', () => {
@@ -77,7 +77,7 @@ describe('App Component - Routing', () => {
       </MemoryRouter>
     );
     
-    expect(screen.getByText(/Home/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Home/i)[0]).toBeInTheDocument();
   });
 
   it('should render all main sections on home page', () => {
@@ -88,7 +88,7 @@ describe('App Component - Routing', () => {
     );
     
     // Check if navbar is present
-    const homeLink = screen.getByText(/Home/i);
+    const homeLink = screen.getAllByText(/Home/i)[0];
     expect(homeLink).toBeInTheDocument();
   });
 });

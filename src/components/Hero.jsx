@@ -7,8 +7,8 @@ function Hero() {
 
   const getStyles = () => ({
     section: {
-      paddingTop: isMobile ? '100px' : '160px',
-      paddingBottom: isMobile ? '60px' : isTablet ? '100px' : '160px',
+      paddingTop: isMobile ? '40px' : '160px',
+      paddingBottom: isMobile ? '40px' : isTablet ? '60px' : '80px',
       paddingLeft: isMobile ? '20px' : '40px',
       paddingRight: isMobile ? '20px' : '40px',
     },

@@ -15,16 +15,18 @@ const tools = [
 ];
 
 function Tools() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
       padding: isMobile ? '24px 20px' : '32px 40px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
-      marginBottom: '20px',
-    },
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
+      marginBottom: '20px',      textAlign: 'center',    },
     grid: {
       display: 'grid',
       gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(160px, 1fr))',
@@ -55,7 +57,7 @@ function Tools() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Tools
+        TOOLS
       </motion.h2>
 
       <div style={styles.grid}>

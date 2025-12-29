@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useResponsive } from '../hooks/useResponsive';
 
 function Contact() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -59,12 +59,18 @@ function Contact() {
 
   const getStyles = () => ({
     section: {
-      padding: isMobile ? '24px 20px' : '32px 40px',
+      padding: isMobile ? '24px 20px 40px' : '32px 40px 120px',
       maxWidth: '900px',
+      minHeight: isMobile ? 'auto' : 'calc(100vh - 100px)',
+      scrollMarginTop: '100px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '20px',
+      textAlign: 'center',
     },
     card: {
       padding: isMobile ? '20px' : '24px',
@@ -77,6 +83,7 @@ function Contact() {
       fontSize: isMobile ? '16px' : '18px',
       opacity: 0.65,
       marginBottom: isMobile ? '20px' : '24px',
+      textAlign: 'center',
     },
     form: {
       display: 'flex',
@@ -87,7 +94,7 @@ function Contact() {
       display: 'flex',
       gap: isMobile ? '12px' : '20px',
       alignItems: 'flex-start',
-      flexDirection: isMobile ? 'column' : 'row',
+      flexDirection: 'row',
     },
     field: {
       display: 'flex',
@@ -163,7 +170,7 @@ function Contact() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Contact
+        CONTACT
       </motion.h2>
 
       {/* Card Container */}

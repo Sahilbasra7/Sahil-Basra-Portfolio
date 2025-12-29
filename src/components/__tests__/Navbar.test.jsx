@@ -25,32 +25,35 @@ describe('Navbar Component', () => {
 
   it('should render the navbar', () => {
     renderWithRouter(<Navbar />);
-    const nav = screen.getByRole('navigation');
-    expect(nav).toBeInTheDocument();
+    const navs = screen.getAllByRole('navigation');
+    // Should have 2 navbars on desktop (top and right)
+    expect(navs.length).toBeGreaterThanOrEqual(1);
+    expect(navs[0]).toBeInTheDocument();
   });
 
   it('should display all navigation links', () => {
     renderWithRouter(<Navbar />);
     
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('About')).toBeInTheDocument();
-    expect(screen.getByText('Skills')).toBeInTheDocument();
-    expect(screen.getByText('Experience')).toBeInTheDocument();
-    expect(screen.getByText('Projects')).toBeInTheDocument();
-    expect(screen.getByText('Tools')).toBeInTheDocument();
-    expect(screen.getByText('Contact')).toBeInTheDocument();
+    expect(screen.getAllByText('Home')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('About')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Skills')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Experience')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Projects')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Tools')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Thoughts')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Contact')[0]).toBeInTheDocument();
   });
 
   it('should render navigation links with correct hrefs', () => {
     renderWithRouter(<Navbar />);
     
-    const homeLink = screen.getByRole('link', { name: /home/i });
-    const aboutLink = screen.getByRole('link', { name: /about/i });
-    const skillsLink = screen.getByRole('link', { name: /skills/i });
+    const homeLinks = screen.getAllByRole('link', { name: /home/i });
+    const aboutLinks = screen.getAllByRole('link', { name: /about/i });
+    const skillsLinks = screen.getAllByRole('link', { name: /skills/i });
     
-    expect(homeLink).toHaveAttribute('href', '#home');
-    expect(aboutLink).toHaveAttribute('href', '#about');
-    expect(skillsLink).toHaveAttribute('href', '#skills');
+    expect(homeLinks[0]).toHaveAttribute('href', '#home');
+    expect(aboutLinks[0]).toHaveAttribute('href', '#about');
+    expect(skillsLinks[0]).toHaveAttribute('href', '#skills');
   });
 
   it('should have progress bar element', () => {
@@ -60,16 +63,16 @@ describe('Navbar Component', () => {
     expect(navbar).toBeInTheDocument();
   });
 
-  it('should render exactly 7 navigation items', () => {
+  it('should render exactly 8 navigation items', () => {
     renderWithRouter(<Navbar />);
     
     const navItems = [
       'Home', 'About', 'Skills', 'Experience', 
-      'Projects', 'Tools', 'Contact'
+      'Projects', 'Tools', 'Thoughts', 'Contact'
     ];
     
     navItems.forEach(item => {
-      expect(screen.getByText(item)).toBeInTheDocument();
+      expect(screen.getAllByText(item)[0]).toBeInTheDocument();
     });
   });
 });

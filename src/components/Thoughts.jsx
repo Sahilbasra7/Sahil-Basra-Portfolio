@@ -36,7 +36,7 @@ const thoughts = [
 
 function Thoughts() {
   const [openIndex, setOpenIndex] = useState(null);
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
@@ -45,9 +45,12 @@ function Thoughts() {
       scrollMarginTop: '120px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '20px',
-      fontWeight: 600,
+      textAlign: 'center',
     },
     mainCard: {
       padding: isMobile ? '16px' : '24px',
@@ -138,7 +141,7 @@ function Thoughts() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Thoughts
+        THOUGHTS
       </motion.h2>
 
       {/* Main Card */}

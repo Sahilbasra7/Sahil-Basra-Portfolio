@@ -27,15 +27,19 @@ const projects = [
 ];
 
 function Projects() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
       padding: isMobile ? '24px 20px' : '32px 40px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '20px',
+      textAlign: 'center',
     },
     grid: {
       display: 'grid',
@@ -84,7 +88,7 @@ function Projects() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Projects
+        PROJECTS
       </motion.h2>
 
       <div style={styles.grid}>

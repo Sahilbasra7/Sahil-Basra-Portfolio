@@ -9,16 +9,52 @@ function MainLayout({ children }) {
     return false;
   });
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMobile) return;
+      
+      // Switch to top position when scrolled down more than 100px
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
+
+  const getProfileCardStyle = () => {
+    if (isMobile) return mobileStyles.left;
+    
+    if (isScrolled) {
+      return {
+        ...styles.left,
+        top: '100px',
+        transform: 'translateY(0)',
+        transition: 'top 0.4s ease, transform 0.4s ease',
+      };
+    }
+    
+    return {
+      ...styles.left,
+      transition: 'top 0.4s ease, transform 0.4s ease',
+    };
+  };
+
   return (
     <div style={styles.page}>
       <div style={isMobile ? mobileStyles.wrapper : styles.wrapper}>
-        <aside style={isMobile ? mobileStyles.left : styles.left}>
+        <aside style={getProfileCardStyle()}>
           <ProfileCard />
         </aside>
 
@@ -65,12 +101,14 @@ const mobileStyles = {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '32px',
-    padding: '80px 16px 0', // space for fixed navbar
+    padding: '70px 16px 0', // space for fixed navbar header at top
   },
 
   left: {
     position: 'static',
     transform: 'none',
+    width: '100%',
+    maxWidth: '340px',
   },
 
   right: {

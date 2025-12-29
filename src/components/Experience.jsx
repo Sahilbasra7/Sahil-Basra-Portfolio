@@ -20,7 +20,7 @@ const experience = [
 ];
 
 function Experience() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
@@ -28,8 +28,12 @@ function Experience() {
       maxWidth: '900px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '20px',
+      textAlign: 'center',
     },
     card: {
       padding: isMobile ? '20px' : '24px',
@@ -74,7 +78,7 @@ function Experience() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        Experience
+        EXPERIENCE
       </motion.h2>
 
       <div>

@@ -3,17 +3,21 @@ import { motion } from 'framer-motion';
 import { useResponsive } from '../hooks/useResponsive';
 
 function About() {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   const getStyles = () => ({
     section: {
-      padding: isMobile ? '24px 20px' : '24px 40px',
+      padding: isMobile ? '40px 20px' : '60px 40px',
       maxWidth: '900px',
       scrollMarginTop: '120px',
     },
     heading: {
-      fontSize: isMobile ? '32px' : '40px',
+      fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
+      fontWeight: 800,
+      lineHeight: 0.95,
+      letterSpacing: '-1px',
       marginBottom: '22px',
+      textAlign: 'center',
     },
     card: {
       padding: isMobile ? '20px' : '28px',
@@ -56,7 +60,7 @@ function About() {
         transition={{ duration: 0.6 }}
         style={styles.heading}
       >
-        About
+        ABOUT
       </motion.h2>
 
       {/* About Card – SAME SIZE AS PROJECT CARD */}
