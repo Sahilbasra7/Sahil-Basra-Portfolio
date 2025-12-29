@@ -608,8 +608,9 @@ const styles = {
     background: 'rgba(0,0,0,0.7)',
     backdropFilter: 'blur(4px)',
     zIndex: 999,
+    pointerEvents: 'auto',
+    touchAction: 'none',
   },
-
   mobileMenu: {
     position: 'fixed',
     top: 0,
