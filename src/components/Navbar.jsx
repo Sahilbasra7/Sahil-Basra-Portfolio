@@ -269,6 +269,7 @@ const [isMobile, setIsMobile] = useState(() => {
           transition={{ duration: 0.2 }}
           style={styles.mobileOverlay}
           onClick={() => setMenuOpen(false)}
+          onTouchEnd={() => setMenuOpen(false)}
         >
           <motion.div
             initial={{ x: -260 }}
@@ -277,6 +278,7 @@ const [isMobile, setIsMobile] = useState(() => {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             style={styles.mobileMenu}
             onClick={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
           >
             <button
               style={styles.closeBtn}
