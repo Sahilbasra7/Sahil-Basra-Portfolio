@@ -94,13 +94,13 @@ const styles = {
   name: {
     fontSize: '54px',
     fontWeight: '700',
-    margin: '0 0 8px 0',
+    margin: '0 0 0px 0',
     color: '#000',
   },
   subtitle: {
-    fontSize: '18px',
+    fontSize: '20px',
     fontWeight: '400',
-    margin: '0 0 20px 0',
+    margin: '0 0 45px 0',
     color: '#666',
     opacity: 0.85,
   },

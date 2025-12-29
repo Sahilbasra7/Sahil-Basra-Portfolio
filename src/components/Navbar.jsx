@@ -140,6 +140,18 @@ const [isMobile, setIsMobile] = useState(() => {
     return () => window.removeEventListener('scroll', handleProgress);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen, isMobile]);
+
   return (
     <div style={isMobile ? styles.wrapperMobile : styles.wrapper}>
       <motion.nav
@@ -600,22 +612,24 @@ const styles = {
     position: 'fixed',
     top: 0,
     left: 0,
-    height: '100vh',
+    height: 'auto',
+    maxHeight: '90vh',
     width: '260px',
     background: '#141414',
-    padding: '24px',
+    padding: '16px 20px 20px 20px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '24px',
+    gap: '8px',
     boxShadow: '2px 0 12px rgba(0,0,0,0.5)',
     zIndex: 1001,
+    borderBottomRightRadius: '16px',
   },
 
   mobileLink: {
     color: '#fff',
-    fontSize: '16px',
+    fontSize: '15px',
     textDecoration: 'none',
-    padding: '12px 0',
+    padding: '8px 0',
     borderBottom: '1px solid rgba(255,255,255,0.05)',
     transition: 'color 0.2s',
   },
@@ -625,10 +639,10 @@ const styles = {
     background: 'none',
     border: 'none',
     color: '#fff',
-    fontSize: '24px',
+    fontSize: '22px',
     cursor: 'pointer',
-    marginBottom: '8px',
-    padding: '8px',
+    marginBottom: '2px',
+    padding: '2px',
     opacity: 0.8,
     transition: 'opacity 0.2s',
   },
