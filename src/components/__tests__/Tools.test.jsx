@@ -22,4 +22,22 @@ describe('Tools Component', () => {
     expect(screen.getByText(/Cypress/i)).toBeInTheDocument();
     expect(screen.getByText(/Postman/i)).toBeInTheDocument();
   });
+
+  it('should display tools in a single container', () => {
+    render(<Tools />);
+    const container = document.querySelector('#tools');
+    expect(container).toBeInTheDocument();
+    // Check that all tools are rendered in the container
+    const toolsSection = container.querySelector('div');
+    expect(toolsSection).toBeInTheDocument();
+  });
+
+  it('should display all 9 tools', () => {
+    render(<Tools />);
+    expect(screen.getByText(/Node\.js/i)).toBeInTheDocument();
+    expect(screen.getByText(/Git & GitHub/i)).toBeInTheDocument();
+    expect(screen.getByText(/REST APIs/i)).toBeInTheDocument();
+    expect(screen.getByText(/CI \/ CD/i)).toBeInTheDocument();
+    expect(screen.getByText(/VS Code/i)).toBeInTheDocument();
+  });
 });

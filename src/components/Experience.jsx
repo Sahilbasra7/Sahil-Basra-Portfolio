@@ -4,18 +4,28 @@ import { useResponsive } from '../hooks/useResponsive';
 
 const experience = [
   {
-    company: 'Company Name',
-    role: 'Senior QA Automation Engineer',
-    period: '2022 — Present',
+    role: 'QA Automation Engineer',
+    company: 'Visualizer.me',
+    period: 'October 2023 — Present',
+    location: 'Delhi, India',
     description:
-      'Designed and maintained Playwright automation frameworks, improved test reliability and CI stability.',
+      'Developed a robust end-to-end automated test suite using Playwright to validate complete user flows, including resume creation, profile setup, and shareable link generation. Performed comprehensive REST API testing with Postman, covering authentication, user data management, PDF exports, and OpenAI-powered content rewriting services. Validated secure integration with AWS-hosted backend systems and embedded the automated test suite into the AWS CI/CD pipeline to support continuous testing. Tested dynamic UI components such as AI-based resume introductions, career graphs, and live location maps, verified OpenAI API responses, and ensured cross-browser and mobile compatibility using BrowserStack.',
   },
   {
-    company: 'Previous Company',
     role: 'QA Engineer',
-    period: '2019 — 2022',
+    company: 'Cameleon Network Inc.',
+    period: 'July 2022 — September 2023',
+    location: 'Delhi, India',
     description:
-      'Executed manual and automated tests, collaborated closely with developers to improve product quality.',
+      'Developed six well-structured test plans that significantly enhanced QA team collaboration and improved overall test coverage. Documented, tracked, and managed defects with 80% accuracy using bug-tracking tools, enabling effective root-cause analysis and faster resolution. Executed thorough manual testing across web and client platforms to validate UI behavior, core functionality, and end-to-end business workflows. Closely collaborated with Scrum Masters and product owners to triage and resolve high-impact issues, achieving a 20% reduction in system downtime. Prioritized defect resolution cycles and applied strong regression and sanity testing practices, reducing bug fix turnaround time by 30% and improving release stability by 40%.',
+  },
+  {
+    role: 'Software Test Engineer',
+    company: 'Septasoft Solutions Inc.',
+    period: 'Dec 2019 — July 2022',
+    location: 'Delhi, India',
+    description:
+      'Conducted comprehensive manual testing of marketing websites and internal dashboards, with a strong focus on UI/UX consistency, data integrity, and smooth navigation flows. Created and maintained detailed test cases in Jira integrated with TestRail, covering feature acceptance, field validations, and cross-browser compatibility. Worked closely with developers to clarify requirements and reported defects with clear reproduction steps, logs, and screenshots. During release cycles, executed smoke, sanity, and exploratory testing to ensure stability. Developed a limited set of Playwright automation scripts to validate repetitive workflows and performed responsive and mobile testing using BrowserStack. Used Lighthouse in Chrome DevTools to assess performance, accessibility, and SEO.',
   },
 ];
 
@@ -44,11 +54,11 @@ function Experience() {
       marginBottom: isMobile ? '16px' : '24px',
       transition: 'box-shadow 0.25s ease, transform 0.25s ease',
     },
-    company: {
+    role: {
       fontSize: isMobile ? '18px' : '20px',
       fontWeight: 600,
     },
-    role: {
+    company: {
       fontSize: isMobile ? '13px' : '14px',
       opacity: 0.7,
       marginTop: '4px',
@@ -60,11 +70,22 @@ function Experience() {
       opacity: 0.75,
       maxWidth: '560px',
     },
-    period: {
-      display: 'block',
+    footer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
       marginTop: '8px',
+      flexWrap: 'wrap',
+      gap: '8px',
+    },
+    period: {
       fontSize: isMobile ? '11px' : '12px',
       opacity: 0.5,
+    },
+    location: {
+      fontSize: isMobile ? '11px' : '12px',
+      opacity: 0.5,
+      fontStyle: 'italic',
     },
   });
 
@@ -93,10 +114,13 @@ function Experience() {
             transition={{ type: 'spring', stiffness: 250 }}
             style={styles.card}
           >
-            <h3 style={styles.company}>{item.company}</h3>
-            <p style={styles.role}>{item.role}</p>
+            <h3 style={styles.role}>{item.role}</h3>
+            <p style={styles.company}>{item.company}</p>
             <p style={styles.desc}>{item.description}</p>
-            <span style={styles.period}>{item.period}</span>
+            <div style={styles.footer}>
+              <span style={styles.period}>{item.period}</span>
+              <span style={styles.location}>{item.location}</span>
+            </div>
           </motion.div>
         ))}
       </div>

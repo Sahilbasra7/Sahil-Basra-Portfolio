@@ -5,8 +5,8 @@ import Projects from '../Projects';
 describe('Projects Component', () => {
   it('should render the projects section', () => {
     render(<Projects />);
-    const heading = screen.getByText(/Projects/i);
-    expect(heading).toBeInTheDocument();
+    const headings = screen.getAllByText(/Projects/i);
+    expect(headings.length).toBeGreaterThan(0);
   });
 
   it('should have correct section id for navigation', () => {
@@ -27,10 +27,10 @@ describe('Projects Component', () => {
     expect(screen.getByText(/Automated product search/i)).toBeInTheDocument();
   });
 
-  it('should display API Testing Framework project', () => {
+  it('should display Sahil Basra Portfolio project', () => {
     render(<Projects />);
-    expect(screen.getByText(/API Testing Framework/i)).toBeInTheDocument();
-    expect(screen.getByText(/REST API automation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sahil Basra Portfolio/i)).toBeInTheDocument();
+    expect(screen.getByText(/Modern, responsive personal portfolio website/i)).toBeInTheDocument();
   });
 
   it('should display technology stack for each project', () => {
@@ -49,10 +49,36 @@ describe('Projects Component', () => {
     
     const sauceDemo = screen.getByText(/Sauce Demo Automation/i);
     const amazonSearch = screen.getByText(/Amazon Search Automation/i);
-    const apiFramework = screen.getByText(/API Testing Framework/i);
+    const portfolio = screen.getByText(/Sahil Basra Portfolio/i);
     
     expect(sauceDemo).toBeInTheDocument();
     expect(amazonSearch).toBeInTheDocument();
-    expect(apiFramework).toBeInTheDocument();
+    expect(portfolio).toBeInTheDocument();
+  });
+
+  it('should have links that open in new tabs', () => {
+    render(<Projects />);
+    const links = document.querySelectorAll('a[target="_blank"]');
+    expect(links.length).toBeGreaterThan(0);
+    
+    // Check for security attributes
+    links.forEach(link => {
+      expect(link.getAttribute('rel')).toContain('noopener');
+      expect(link.getAttribute('rel')).toContain('noreferrer');
+    });
+  });
+
+  it('should display correct GitHub links', () => {
+    render(<Projects />);
+    const sauceDemoLink = screen.getByText(/Sauce Demo Automation/i).closest('div').querySelector('a');
+    expect(sauceDemoLink.getAttribute('href')).toContain('SauceDemo-Playwright-Automation');
+    
+    const portfolioLink = screen.getByText(/Sahil Basra Portfolio/i).closest('div').querySelector('a');
+    expect(portfolioLink.getAttribute('href')).toContain('Sahil-Basra-Portfolio');
+  });
+
+  it('should display React and Vite tech stack for portfolio', () => {
+    render(<Projects />);
+    expect(screen.getByText(/React \u00b7 Vite \u00b7 Framer Motion \u00b7 Vitest/i)).toBeInTheDocument();
   });
 });

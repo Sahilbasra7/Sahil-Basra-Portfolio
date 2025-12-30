@@ -3,12 +3,28 @@ import { motion } from 'framer-motion';
 import { useResponsive } from '../hooks/useResponsive';
 
 const skills = [
-  'Automation Testing',
   'Manual Testing',
-  'Test Strategy & Planning',
-  'Regression Testing',
+  'Playwright',
+  'JavaScript',
   'API Testing',
-  'CI / CD',
+  'Test Planning',
+  'Bug Reporting',
+  'Sanity Testing',
+  'Regression Testing',
+  'Jira',
+  'TestRail',
+  'Agile/Scrum',
+  'Postman',
+  'OpenAI API',
+  'HTML',
+  'CSS',
+  'GitHub',
+  'AWS',
+  'BrowserStack',
+  'Lighthouse',
+  'CI/CD',
+  'Playwright Reporter',
+  'MS Office',
 ];
 
 function Skills() {
@@ -27,21 +43,27 @@ function Skills() {
       marginBottom: '16px',
       textAlign: 'center',
     },
-    grid: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(160px, 1fr))',
-      gap: isMobile ? '12px' : '14px',
-      maxWidth: '800px',
-    },
-    card: {
-      padding: isMobile ? '14px 16px' : '16px 20px',
-      borderRadius: '12px',
-      background: 'rgba(255,255,255,0.035)',
+    container: {
+      maxWidth: '900px',
+      padding: isMobile ? '20px' : '28px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
       border: '1px solid rgba(255,255,255,0.08)',
+    },
+    skillsWrapper: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: isMobile ? '6px 12px' : '8px 16px',
+      justifyContent: 'center',
       fontSize: isMobile ? '13px' : '14px',
-      textAlign: 'center',
-      opacity: 0.85,
-      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+      lineHeight: 1.6,
+      opacity: 0.78,
+    },
+    skill: {
+      whiteSpace: 'nowrap',
+    },
+    separator: {
+      opacity: 0.4,
     },
   });
 
@@ -60,19 +82,24 @@ function Skills() {
         SKILLS
       </motion.h2>
 
-      {/* Skills Grid */}
-      <div style={styles.grid}>
-        {skills.map((skill, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(0,0,0,0.35)' }}
-            transition={{ type: 'spring', stiffness: 250 }}
-            style={styles.card}
-          >
-            {skill}
-          </motion.div>
-        ))}
-      </div>
+      {/* Skills Container */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -6 }}
+        viewport={{ once: true }}
+        transition={{ type: 'spring', stiffness: 250 }}
+        style={styles.container}
+      >
+        <div style={styles.skillsWrapper}>
+          {skills.map((skill, index) => (
+            <span key={index}>
+              <span style={styles.skill}>{skill}</span>
+              {index < skills.length - 1 && <span style={styles.separator}> · </span>}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

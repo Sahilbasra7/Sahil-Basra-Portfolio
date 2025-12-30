@@ -53,7 +53,7 @@ describe('ProfileCard Component', () => {
     it('should render YouTube link with correct URL', () => {
       render(<ProfileCard />);
       const youtubeLink = screen.getByLabelText('YouTube');
-      expect(youtubeLink).toHaveAttribute('href', 'https://youtube.com/@sahilbasra');
+      expect(youtubeLink).toHaveAttribute('href', 'https://www.youtube.com/');
       expect(youtubeLink).toHaveAttribute('target', '_blank');
       expect(youtubeLink).toHaveAttribute('rel', 'noopener noreferrer');
     });

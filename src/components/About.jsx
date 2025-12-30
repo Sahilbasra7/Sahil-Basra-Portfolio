@@ -73,22 +73,23 @@ function About() {
         style={styles.card}
       >
         <p style={styles.description}>
-          I am a QA Automation Engineer with hands-on experience in designing
-          scalable automation frameworks and ensuring high-quality software
-          delivery through reliable testing strategies.
-        </p>
-
-        <p style={styles.description}>
-          I specialize in Playwright and JavaScript, with strong exposure to
-          UI, API, and integration testing across modern web applications.
+          Results-driven Software QA Engineer with 5+ years of hands-on experience in manual and
+          automation testing, specializing in UI, API, and regression testing. Highly proficient in
+          building scalable end-to-end automation frameworks using JavaScript and Playwright. Known
+          for creating effective test strategies, accurate defect tracking, and measurable quality
+          improvements. Excels in Agile/Scrum environments, collaborating cross-functionally to
+          deliver reliable, high-performance applications. Proven ability to increase test coverage,
+          reduce defect resolution time, and maintain exceptional quality standards across multiple
+          platforms.
         </p>
         <div style={styles.divider} />
 
         <div style={styles.meta}>
-          <span>3+ Years Experience</span>
-          <span>Playwright & Cypress</span>
-          <span>JavaScript</span>
-          <span>UI & API Testing</span>
+          <span>5+ Years Experience</span>
+          <span>Manual & Automation Testing</span>
+          <span>Playwright & JavaScript</span>
+          <span>API & UI Testing</span>
+          <span>Agile/Scrum</span>
         </div>
       </motion.div>
     </section>

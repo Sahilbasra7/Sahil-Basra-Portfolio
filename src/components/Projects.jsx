@@ -8,7 +8,7 @@ const projects = [
     description:
       'End-to-end automation framework built using Playwright and JavaScript, covering login, cart, and checkout flows.',
     tech: 'Playwright · JavaScript',
-    link: '#',
+    link: 'https://github.com/Sahilbasra7/SauceDemo-Playwright-Automation',
   },
   {
     title: 'Amazon Search Automation',
@@ -18,11 +18,11 @@ const projects = [
     link: '#',
   },
   {
-    title: 'API Testing Framework',
+    title: 'Sahil Basra Portfolio',
     description:
-      'REST API automation with validation, negative testing, and reusable utilities.',
-    tech: 'JavaScript · API Testing',
-    link: '#',
+      'Modern, responsive personal portfolio website showcasing projects, skills, and experience with smooth animations and dual navigation system.',
+    tech: 'React · Vite · Framer Motion · Vitest',
+    link: 'https://github.com/Sahilbasra7/Sahil-Basra-Portfolio',
   },
 ];
 
@@ -106,7 +106,7 @@ function Projects() {
 
             <p style={styles.tech}>{project.tech}</p>
 
-            <a href={project.link} style={styles.link}>
+            <a href={project.link} target="_blank" rel="noopener noreferrer" style={styles.link}>
               View Project →
             </a>
           </motion.div>

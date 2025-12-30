@@ -28,22 +28,27 @@ function Tools() {
       lineHeight: 0.95,
       letterSpacing: '-1px',
       marginBottom: '20px',      textAlign: 'center',    },
-    grid: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(160px, 1fr))',
-      gap: isMobile ? '12px' : '16px',
-      maxWidth: '800px',
-      marginTop: '12px',
-    },
-    card: {
-      padding: isMobile ? '14px 16px' : '16px 20px',
-      borderRadius: '12px',
-      background: 'rgba(255,255,255,0.04)',
+    container: {
+      maxWidth: '900px',
+      padding: isMobile ? '20px' : '28px',
+      borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)',
       border: '1px solid rgba(255,255,255,0.08)',
-      fontSize: isMobile ? '13px' : '14px',
-      textAlign: 'center',
+    },
+    toolsWrapper: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: isMobile ? '8px' : '10px',
+      justifyContent: 'center',
+    },
+    tool: {
+      padding: isMobile ? '8px 14px' : '10px 18px',
+      borderRadius: '8px',
+      background: 'rgba(255,255,255,0.05)',
+      border: '1px solid rgba(255,255,255,0.1)',
+      fontSize: isMobile ? '12px' : '13px',
       opacity: 0.8,
-      transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+      transition: 'all 0.2s ease',
     },
   });
 
@@ -61,18 +66,22 @@ function Tools() {
         TOOLS
       </motion.h2>
 
-      <div style={styles.grid}>
-        {tools.map((tool, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ y: -4, boxShadow: '0 10px 28px rgba(0,0,0,0.35)' }}
-            transition={{ type: 'spring', stiffness: 220 }}
-            style={styles.card}
-          >
-            {tool}
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -6 }}
+        viewport={{ once: true }}
+        transition={{ type: 'spring', stiffness: 250 }}
+        style={styles.container}
+      >
+        <div style={styles.toolsWrapper}>
+          {tools.map((tool, index) => (
+            <span key={index} style={styles.tool}>
+              {tool}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
