@@ -21,9 +21,9 @@ describe('Projects Component', () => {
     expect(screen.getByText(/End-to-end automation framework/i)).toBeInTheDocument();
   });
 
-  it('should display Amazon Search Automation project', () => {
+  it('should display Amazon Playwright Automation project', () => {
     render(<Projects />);
-    expect(screen.getByText(/Amazon Search Automation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Amazon Playwright Automation/i)).toBeInTheDocument();
     expect(screen.getByText(/Automated product search/i)).toBeInTheDocument();
   });
 
@@ -48,11 +48,11 @@ describe('Projects Component', () => {
     render(<Projects />);
     
     const sauceDemo = screen.getByText(/Sauce Demo Automation/i);
-    const amazonSearch = screen.getByText(/Amazon Search Automation/i);
+    const amazonAutomation = screen.getByText(/Amazon Playwright Automation/i);
     const portfolio = screen.getByText(/Sahil Basra Portfolio/i);
     
     expect(sauceDemo).toBeInTheDocument();
-    expect(amazonSearch).toBeInTheDocument();
+    expect(amazonAutomation).toBeInTheDocument();
     expect(portfolio).toBeInTheDocument();
   });
 

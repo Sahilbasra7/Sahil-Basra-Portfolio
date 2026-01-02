@@ -10,6 +10,7 @@ import Tools from './components/Tools';
 import Thoughts from './components/Thoughts';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 
 import Blog1 from './pages/blogs/Blog1';
 import Blog2 from './pages/blogs/Blog2';
@@ -23,23 +24,26 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <WhatsAppButton />
 
       <Routes>
         {/* ✅ HOME PAGE (ONLY ONCE) */}
         <Route
           path="/"
           element={
-            <MainLayout>
-              <Hero />
-              <About />
-              <Skills />
-              <Experience />
-              <Projects />
-              <Tools />
-              <Thoughts />
-              <Contact />
+            <>
+              <MainLayout>
+                <Hero />
+                <About />
+                <Skills />
+                <Experience />
+                <Projects />
+                <Tools />
+                <Thoughts />
+                <Contact />
+              </MainLayout>
               <Footer />
-            </MainLayout>
+            </>
           }
         />
         {/* ✅ BLOG PAGES */}

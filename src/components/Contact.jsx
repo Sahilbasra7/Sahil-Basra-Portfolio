@@ -25,7 +25,7 @@ function Contact() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isSubmitting) return;
@@ -45,13 +45,41 @@ function Contact() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      setSuccess(true);
-      setForm({ name: '', email: '', purpose: '', message: '' });
+      try {
+        // Submit to FormSubmit.co
+        const formData = new FormData();
+        formData.append('name', form.name);
+        formData.append('email', form.email);
+        formData.append('purpose', form.purpose);
+        formData.append('message', form.message);
+        formData.append('_subject', `Portfolio Contact: ${form.purpose}`);
+        formData.append('_captcha', 'false'); // Disable captcha, set to 'true' if you want captcha
+        formData.append('_template', 'table'); // Use table format for better email readability
 
-      setTimeout(() => {
-        setSuccess(false);
+        const response = await fetch('https://formsubmit.co/basrasahil32@gmail.com', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          setSuccess(true);
+          setForm({ name: '', email: '', purpose: '', message: '' });
+
+          setTimeout(() => {
+            setSuccess(false);
+            setIsSubmitting(false);
+          }, 4000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setErrors({ submit: 'Failed to send message. Please try again.' });
         setIsSubmitting(false);
-      }, 4000);
+      }
     } else {
       setIsSubmitting(false);
     }
@@ -61,8 +89,9 @@ function Contact() {
     section: {
       padding: isMobile ? '24px 20px 40px' : '32px 40px 120px',
       maxWidth: '900px',
-      minHeight: isMobile ? 'auto' : 'calc(100vh - 100px)',
-      scrollMarginTop: isMobile ? '80px' : '100px',
+      minHeight: isMobile ? 'auto' : '100vh',
+      scrollMarginTop: isMobile ? '80px' : '0px',
+      paddingTop: isMobile ? '24px' : '100px',
     },
     heading: {
       fontSize: isMobile ? '42px' : isTablet ? '60px' : '76px',
@@ -251,6 +280,12 @@ function Contact() {
               style={{
                 ...styles.input,
                 border: errors.purpose ? '1px solid #ff6b6b' : '1px solid transparent',
+                appearance: 'none',
+                backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'white\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 16px center',
+                backgroundSize: '20px',
+                paddingRight: '44px',
               }}
             >
               <option value="">Select Purpose</option>
@@ -270,12 +305,19 @@ function Contact() {
               style={{
                 ...styles.input,
                 height: '140px',
+                resize: 'vertical',
                 border: errors.message ? '1px solid #ff6b6b' : '1px solid transparent',
               }}
               placeholder="Message"
             />
             <span style={styles.error}>{errors.message || ' '}</span>
           </div>
+
+          {errors.submit && (
+            <div style={{ color: '#ff6b6b', fontSize: '14px', textAlign: 'center' }}>
+              {errors.submit}
+            </div>
+          )}
 
           <button
             style={{
@@ -285,7 +327,7 @@ function Contact() {
             }}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            {isSubmitting ? 'Sending...' : 'Submit'}
           </button>
         </form>
         )}

@@ -1,8 +1,15 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Contact from '../Contact';
 
+// Mock fetch for FormSubmit
+global.fetch = vi.fn();
+
 describe('Contact Component', () => {
+  beforeEach(() => {
+    fetch.mockClear();
+  });
+
   it('should render the contact section', () => {
     render(<Contact />);
     const heading = screen.getByText(/Contact/i);
@@ -20,4 +27,137 @@ describe('Contact Component', () => {
     const paragraph = screen.getByText(/Let.s work together/i);
     expect(paragraph).toBeInTheDocument();
   });
+
+  it('should render form fields', () => {
+    render(<Contact />);
+    
+    expect(screen.getByPlaceholderText(/Your Name/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/your@email.com/i)).toBeInTheDocument();
+    expect(screen.getByText(/Select Purpose/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Message/i)).toBeInTheDocument();
+  });
+
+  it('should render submit button', () => {
+    render(<Contact />);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    expect(submitButton).toBeInTheDocument();
+  });
+
+  it('should show validation errors for empty fields', async () => {
+    render(<Contact />);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Name is required')).toBeInTheDocument();
+      expect(screen.getByText('Email is required')).toBeInTheDocument();
+      expect(screen.getByText('Please select a purpose')).toBeInTheDocument();
+      expect(screen.getByText('Message cannot be empty')).toBeInTheDocument();
+    });
+  });
+
+  it('should validate email format', async () => {
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'invalidemail' } });
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Enter a valid email')).toBeInTheDocument();
+    });
+  });
+
+  it('should submit form successfully with valid data', async () => {
+    fetch.mockResolvedValueOnce({ ok: true });
+    
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    const messageInput = screen.getByPlaceholderText(/Message/i);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(selectInput, { target: { value: 'QA Consulting' } });
+    fireEvent.change(messageInput, { target: { value: 'Test message' } });
+    
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Your message has been sent successfully!/i)).toBeInTheDocument();
+    });
+    
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining('formsubmit.co'),
+      expect.objectContaining({
+        method: 'POST',
+      })
+    );
+  });
+
+  it('should show error message on form submission failure', async () => {
+    fetch.mockResolvedValueOnce({ ok: false });
+    
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    const messageInput = screen.getByPlaceholderText(/Message/i);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(selectInput, { target: { value: 'QA Consulting' } });
+    fireEvent.change(messageInput, { target: { value: 'Test message' } });
+    
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Failed to send message. Please try again./i)).toBeInTheDocument();
+    });
+  });
+
+  it('should disable submit button while submitting', async () => {
+    fetch.mockImplementation(() => new Promise(resolve => setTimeout(() => resolve({ ok: true }), 100)));
+    
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    const messageInput = screen.getByPlaceholderText(/Message/i);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(selectInput, { target: { value: 'QA Consulting' } });
+    fireEvent.change(messageInput, { target: { value: 'Test message' } });
+    
+    fireEvent.click(submitButton);
+    
+    expect(screen.getByRole('button', { name: /Sending.../i })).toBeDisabled();
+  });
+
+  it('should clear errors when user starts typing', () => {
+    render(<Contact />);
+    
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    fireEvent.click(submitButton);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    fireEvent.change(nameInput, { target: { value: 'John' } });
+    
+    expect(screen.queryByText('Name is required')).not.toBeInTheDocument();
+  });
 });
+

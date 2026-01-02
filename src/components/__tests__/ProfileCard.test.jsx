@@ -50,24 +50,16 @@ describe('ProfileCard Component', () => {
       expect(mediumLink).toHaveAttribute('rel', 'noopener noreferrer');
     });
 
-    it('should render YouTube link with correct URL', () => {
-      render(<ProfileCard />);
-      const youtubeLink = screen.getByLabelText('YouTube');
-      expect(youtubeLink).toHaveAttribute('href', 'https://www.youtube.com/');
-      expect(youtubeLink).toHaveAttribute('target', '_blank');
-      expect(youtubeLink).toHaveAttribute('rel', 'noopener noreferrer');
-    });
-
-    it('should render all 4 social media links', () => {
+    it('should render all 3 social media links', () => {
       render(<ProfileCard />);
       const links = screen.getAllByRole('link');
-      expect(links).toHaveLength(4);
+      expect(links).toHaveLength(3);
     });
 
     it('should render all social media icons as SVGs', () => {
       const { container } = render(<ProfileCard />);
       const svgs = container.querySelectorAll('svg');
-      expect(svgs).toHaveLength(4);
+      expect(svgs).toHaveLength(3);
     });
   });
 

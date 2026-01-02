@@ -11,11 +11,11 @@ const projects = [
     link: 'https://github.com/Sahilbasra7/SauceDemo-Playwright-Automation',
   },
   {
-    title: 'Amazon Search Automation',
+    title: 'Amazon Playwright Automation',
     description:
       'Automated product search and validation scenarios with robust selectors and safe execution practices.',
     tech: 'Playwright · JS · Assertions',
-    link: '#',
+    link: 'https://github.com/Sahilbasra7/Amazon-Playwright-Automation',
   },
   {
     title: 'Sahil Basra Portfolio',
