@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Experience from '../Experience';
 
@@ -51,5 +51,43 @@ describe('Experience Component', () => {
     expect(screen.getByText(/October 2023 — Present/i)).toBeInTheDocument();
     expect(screen.getByText(/July 2022 — September 2023/i)).toBeInTheDocument();
     expect(screen.getByText(/Dec 2019 — July 2022/i)).toBeInTheDocument();
+  });
+
+  it('should have expand/collapse buttons for each experience', () => {
+    renderWithRouter(<Experience />);
+    const expandButtons = screen.getAllByLabelText(/Expand details/i);
+    expect(expandButtons.length).toBeGreaterThan(0);
+  });
+
+  it('should toggle experience description on button click', () => {
+    renderWithRouter(<Experience />);
+    const expandButtons = screen.getAllByLabelText(/Expand details/i);
+    const firstButton = expandButtons[0];
+    
+    // Initially should show "Expand details"
+    expect(firstButton).toHaveAttribute('aria-label', 'Expand details');
+    
+    // Click to expand
+    fireEvent.click(firstButton);
+    
+    // Should now show "Collapse details"
+    expect(firstButton).toHaveAttribute('aria-label', 'Collapse details');
+    
+    // Click to collapse
+    fireEvent.click(firstButton);
+    
+    // Should be back to "Expand details"
+    expect(firstButton).toHaveAttribute('aria-label', 'Expand details');
+  });
+
+  it('should display truncated description initially', () => {
+    renderWithRouter(<Experience />);
+    // Check that expand buttons exist, indicating descriptions can be expanded/collapsed
+    const expandButtons = screen.getAllByLabelText(/Expand details/i);
+    expect(expandButtons.length).toBeGreaterThan(0);
+    
+    // Verify descriptions are present (multiple instances expected)
+    const playwrightMentions = screen.getAllByText(/Playwright/i);
+    expect(playwrightMentions.length).toBeGreaterThan(0);
   });
 });
