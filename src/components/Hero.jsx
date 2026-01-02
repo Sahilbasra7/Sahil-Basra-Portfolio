@@ -215,7 +215,7 @@ function Hero() {
               whileHover={{ boxShadow: '0 10px 30px rgba(0,0,0,0.35)', y: -2 }}
             >
               <div>
-                <h4 style={styles.cardValue}>+3</h4>
+                <h4 style={styles.cardValue}>+4</h4>
                 <p style={styles.cardLabel}>Projects Completed</p>
               </div>
 

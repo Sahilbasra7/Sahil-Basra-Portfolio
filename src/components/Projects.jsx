@@ -18,6 +18,13 @@ const projects = [
     link: 'https://github.com/Sahilbasra7/Amazon-Playwright-Automation',
   },
   {
+    title: 'Bedi Lace Collection',
+    description:
+      'E-commerce website for lace products featuring product catalog and responsive design for seamless user experience.',
+    tech: 'React · Vite · Framer Motion · JavaScript',
+    link: 'https://github.com/Sahilbasra7/Bedi-Lace-Collection',
+  },
+  {
     title: 'Sahil Basra Portfolio',
     description:
       'Modern, responsive personal portfolio website showcasing projects, skills, and experience with smooth animations and dual navigation system.',

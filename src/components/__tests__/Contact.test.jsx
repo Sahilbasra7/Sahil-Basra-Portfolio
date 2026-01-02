@@ -69,7 +69,7 @@ describe('Contact Component', () => {
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText('Enter a valid email')).toBeInTheDocument();
+      expect(screen.getByText(/Enter a valid email|Invalid email/i)).toBeInTheDocument();
     });
   });
 
@@ -158,6 +158,96 @@ describe('Contact Component', () => {
     fireEvent.change(nameInput, { target: { value: 'John' } });
     
     expect(screen.queryByText('Name is required')).not.toBeInTheDocument();
+  });
+
+  it('should enforce sequential form filling - email requires name', async () => {
+    render(<Contact />);
+    
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    
+    fireEvent.focus(emailInput);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Please fill name/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should enforce sequential form filling - purpose requires name and email', async () => {
+    render(<Contact />);
+    
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    
+    fireEvent.focus(selectInput);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Please fill name/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should enforce sequential form filling - message requires all previous fields', async () => {
+    render(<Contact />);
+    
+    const messageInput = screen.getByPlaceholderText(/Message/i);
+    
+    fireEvent.focus(messageInput);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Please fill name/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should validate email format on blur', async () => {
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'invalidemail' } });
+    fireEvent.blur(emailInput);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Invalid email')).toBeInTheDocument();
+    });
+  });
+
+  it('should show invalid email error when moving to next field', async () => {
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'invalidemail' } });
+    fireEvent.focus(selectInput);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Invalid email')).toBeInTheDocument();
+    });
+  });
+
+  it('should allow form submission with valid email', async () => {
+    fetch.mockResolvedValueOnce({ ok: true });
+    
+    render(<Contact />);
+    
+    const nameInput = screen.getByPlaceholderText(/Your Name/i);
+    const emailInput = screen.getByPlaceholderText(/your@email.com/i);
+    const selectInput = screen.getByDisplayValue(/Select Purpose/i);
+    const messageInput = screen.getByPlaceholderText(/Message/i);
+    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(selectInput, { target: { value: 'QA Consulting' } });
+    fireEvent.change(messageInput, { target: { value: 'Test message' } });
+    
+    fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Your message has been sent successfully!/i)).toBeInTheDocument();
+    });
   });
 });
 

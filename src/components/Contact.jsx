@@ -15,6 +15,7 @@ function Contact() {
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shakeField, setShakeField] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +24,77 @@ function Contact() {
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
+  };
+
+  const validateField = (fieldName) => {
+    const newErrors = { ...errors };
+    
+    if (fieldName === 'email' && form.email.trim()) {
+      if (!/\S+@\S+\.\S+/.test(form.email)) {
+        newErrors.email = 'Invalid email';
+        setErrors(newErrors);
+        setShakeField('email');
+        setTimeout(() => setShakeField(''), 500);
+        return false;
+      }
+    }
+    
+    return true;
+  };
+
+  const handleFieldFocus = (fieldName) => {
+    // Check if previous fields are filled when focusing on a field
+    if (fieldName === 'email' && !form.name.trim()) {
+      setErrors({ ...errors, name: 'Please fill name' });
+      setShakeField('name');
+      setTimeout(() => setShakeField(''), 500);
+      return;
+    }
+    
+    if (fieldName === 'purpose') {
+      const newErrors = {};
+      if (!form.name.trim()) {
+        newErrors.name = 'Please fill name';
+        setShakeField('name');
+      } else if (!form.email.trim()) {
+        newErrors.email = 'Please fill email';
+        setShakeField('email');
+      } else if (form.email.trim() && !/\S+@\S+\.\S+/.test(form.email)) {
+        newErrors.email = 'Invalid email';
+        setShakeField('email');
+      }
+      
+      if (Object.keys(newErrors).length > 0) {
+        setErrors({ ...errors, ...newErrors });
+        setTimeout(() => setShakeField(''), 500);
+      }
+    }
+    
+    if (fieldName === 'message') {
+      const newErrors = {};
+      if (!form.name.trim()) {
+        newErrors.name = 'Please fill name';
+        setShakeField('name');
+      } else if (!form.email.trim()) {
+        newErrors.email = 'Please fill email';
+        setShakeField('email');
+      } else if (form.email.trim() && !/\S+@\S+\.\S+/.test(form.email)) {
+        newErrors.email = 'Invalid email';
+        setShakeField('email');
+      } else if (!form.purpose) {
+        newErrors.purpose = 'Please select purpose';
+        setShakeField('purpose');
+      }
+      
+      if (Object.keys(newErrors).length > 0) {
+        setErrors({ ...errors, ...newErrors });
+        setTimeout(() => setShakeField(''), 500);
+      }
+    }
+  };
+
+  const handleFieldBlur = (fieldName) => {
+    validateField(fieldName);
   };
 
   const handleSubmit = async (e) => {
@@ -244,10 +316,13 @@ function Contact() {
           <form style={styles.form} onSubmit={handleSubmit}>
           <div style={styles.row}>
             <div style={styles.field}>
-              <input
+              <motion.input
                 name="name"
                 value={form.name}
                 onChange={handleChange}
+                onBlur={() => handleFieldBlur('name')}
+                animate={shakeField === 'name' ? { x: [-10, 10, -10, 10, 0] } : {}}
+                transition={{ duration: 0.4 }}
                 style={{
                   ...styles.input,
                   border: errors.name ? '1px solid #ff6b6b' : '1px solid transparent',
@@ -258,10 +333,14 @@ function Contact() {
             </div>
 
             <div style={styles.field}>
-              <input
+              <motion.input
                 name="email"
                 value={form.email}
                 onChange={handleChange}
+                onFocus={() => handleFieldFocus('email')}
+                onBlur={() => handleFieldBlur('email')}
+                animate={shakeField === 'email' ? { x: [-10, 10, -10, 10, 0] } : {}}
+                transition={{ duration: 0.4 }}
                 style={{
                   ...styles.input,
                   border: errors.email ? '1px solid #ff6b6b' : '1px solid transparent',
@@ -273,10 +352,14 @@ function Contact() {
           </div>
 
           <div style={styles.field}>
-            <select
+            <motion.select
               name="purpose"
               value={form.purpose}
               onChange={handleChange}
+              onFocus={() => handleFieldFocus('purpose')}
+              onBlur={() => handleFieldBlur('purpose')}
+              animate={shakeField === 'purpose' ? { x: [-10, 10, -10, 10, 0] } : {}}
+              transition={{ duration: 0.4 }}
               style={{
                 ...styles.input,
                 border: errors.purpose ? '1px solid #ff6b6b' : '1px solid transparent',
@@ -293,15 +376,19 @@ function Contact() {
               <option>QA Consulting</option>
               <option>Freelance Project</option>
               <option>Full-time Opportunity</option>
-            </select>
+            </motion.select>
             <span style={styles.error}>{errors.purpose || ' '}</span>
           </div>
 
           <div style={styles.field}>
-            <textarea
+            <motion.textarea
               name="message"
               value={form.message}
               onChange={handleChange}
+              onFocus={() => handleFieldFocus('message')}
+              onBlur={() => handleFieldBlur('message')}
+              animate={shakeField === 'message' ? { x: [-10, 10, -10, 10, 0] } : {}}
+              transition={{ duration: 0.4 }}
               style={{
                 ...styles.input,
                 height: '140px',
