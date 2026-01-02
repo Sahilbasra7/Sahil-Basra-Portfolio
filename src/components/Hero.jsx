@@ -170,7 +170,7 @@ function Hero() {
             </div>
 
             <div style={styles.statItem}>
-              <h3 style={styles.statNumber}>+3</h3>
+              <h3 style={styles.statNumber}>+4</h3>
               <p style={styles.statLabel}>Projects Completed</p>
             </div>
 

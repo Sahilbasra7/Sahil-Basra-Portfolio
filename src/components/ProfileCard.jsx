@@ -90,8 +90,8 @@ const styles = {
     fontSize: '20px',
     fontWeight: '400',
     margin: '0 0 45px 0',
-    color: '#666',
-    opacity: 0.85,
+    color: '#222',
+    opacity: 1,
   },
   socials: {
     display: 'flex',

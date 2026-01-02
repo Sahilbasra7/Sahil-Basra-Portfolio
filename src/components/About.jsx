@@ -77,7 +77,10 @@ function About() {
           automation testing, specializing in UI, API, and regression testing. Highly proficient in
           building scalable end-to-end automation frameworks using JavaScript and Playwright. Known
           for creating effective test strategies, accurate defect tracking, and measurable quality
-          improvements. Excels in Agile/Scrum environments, collaborating cross-functionally to
+          improvements.
+        </p>
+        <p style={styles.description}>
+          Excels in Agile/Scrum environments, collaborating cross-functionally to
           deliver reliable, high-performance applications. Proven ability to increase test coverage,
           reduce defect resolution time, and maintain exceptional quality standards across multiple
           platforms.

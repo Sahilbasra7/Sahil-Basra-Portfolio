@@ -1,5 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { useResponsive } from '../hooks/useResponsive';
 
 const experience = [
@@ -31,6 +32,14 @@ const experience = [
 
 function Experience() {
   const { isMobile, isTablet } = useResponsive();
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleExpand = (index) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
 
   const getStyles = () => ({
     section: {
@@ -63,12 +72,47 @@ function Experience() {
       opacity: 0.7,
       marginTop: '4px',
     },
-    desc: {
+    descriptionContainer: {
       marginTop: '12px',
+      padding: isMobile ? '12px' : '16px',
+      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.02)',
+      border: '1px solid rgba(255,255,255,0.05)',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+    },
+    desc: {
       fontSize: isMobile ? '13px' : '14px',
       lineHeight: 1.6,
       opacity: 0.75,
-      maxWidth: '560px',
+      margin: 0,
+      flex: 1,
+    },
+    descCollapsed: {
+      display: '-webkit-box',
+      WebkitLineClamp: 4,
+      WebkitBoxOrient: 'vertical',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+    expandButtonContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      flexShrink: 0,
+    },
+    arrowButton: {
+      background: 'none',
+      border: 'none',
+      color: 'inherit',
+      cursor: 'pointer',
+      padding: '4px 8px',
+      fontSize: '14px',
+      opacity: 0.5,
+      transition: 'opacity 0.2s ease, transform 0.3s ease',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     footer: {
       display: 'flex',
@@ -116,7 +160,30 @@ function Experience() {
           >
             <h3 style={styles.role}>{item.role}</h3>
             <p style={styles.company}>{item.company}</p>
-            <p style={styles.desc}>{item.description}</p>
+
+            <div style={styles.descriptionContainer}>
+              <p style={{
+                ...styles.desc,
+                ...(expandedCards[index] ? {} : styles.descCollapsed)
+              }}>
+                {item.description}
+              </p>
+              <div style={styles.expandButtonContainer}>
+                <button
+                  onClick={() => toggleExpand(index)}
+                  style={{
+                    ...styles.arrowButton,
+                    transform: expandedCards[index] ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.5'}
+                  aria-label={expandedCards[index] ? 'Collapse details' : 'Expand details'}
+                >
+                  ▼
+                </button>
+              </div>
+            </div>
+
             <div style={styles.footer}>
               <span style={styles.period}>{item.period}</span>
               <span style={styles.location}>{item.location}</span>
